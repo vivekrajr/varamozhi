@@ -1,0 +1,194 @@
+In this document, Malayalam words will be written inside '' under
+Mozhi transliteration scheme. An easy guide on translitation and Mozhi
+scheme is available at http://CibuCJ.tripod.com/tutorial.html
+
+Glyphs, Graphemes and Phonemes
+------------------------------
+
+Graphemes are the basic building blocks of a written script. Font
+represents the grahical form of that script.  Grapheme and glyph are
+two related, but, different concepts. Grapheme is the synonym for
+character and font is the synonym for the complete collection of
+glyphs of a language.
+
+As an example, 'ka' and 'u' are basic characters, that is, they are
+graphemes. But 'ku' is not a grapheme because, it is the combination
+of 'ka' and 'u'. So 'ku' is just a glyph. But we need to represent,
+'ku' as a seperate symbol which is graphically different from 'ka' and
+'u'. This symbol should be put in a font which is the collection of
+glyphs and not in character set. In this example, {'ka', 'u'}
+constitute the character set and {'ka', 'u', 'ku'} constitute the
+font.
+
+The real hinderance in understanding this concepts is that we compare
+Asian languages with Latin languages. In English there is one-to-one
+correpsondance between a character and its glyph.  But in Asian
+scripts a character can exist in different graphical forms.  Eg: the
+character Malayalam 'Ra' has different graphical forms in following
+words: 'paRa', 'vakRam', 'vaRsham'. The graphem 'Ra' produces three
+different glyphs on three different contexts.
+
+Lastly about phonemes. They are the basic building blocks of phonetics
+of a language.  Set of phonemes is not the character set. For example,
+we have two 'na's in pronounciation; but have only one grapheme to
+represent them. Instead, Tamil has got two different
+graphemes(characters) to represent them. But phonemes are not of much
+interest to us since we are into writting Malayalam; not speaking
+Malayalam :)
+
+Now you can see that, graphemes form as an abstract concept layer in
+between physically conceivable glyphs and phonemes.
+
+Unicode and Graphemes
+---------------------
+
+Unicode Consortium is standardizing the character sets of the world
+languages. Including Malayalam, character sets of 25 languages are
+currently standardized under Unicode. The basic characters of a
+language is identified and each of them is given a unique number. One
+important thing to remember is that Unicode is not for standardising
+the glyphs; but only graphemes.
+
+More over, encoding 900+ glyphs of Malayalam is a mammoth effort. If
+that is case, Mandarin/Cantonese will need nearly 10,000
+positions. Since the set of graphemes in Malayalam is around 50-60 in
+size, 128 slots alloted are more than enough. Visit following link to
+get the chart of the Unicode encoding for Malayalam:
+http://charts.unicode.org/Unicode.charts/normal/U0D00.html
+
+Auxiliary file and extended chr set and rest
+--------------------------------------------
+
+I dont know about these. My guess would be that, it is useful for
+representing archaic characters. Eg: encoding symbols for 1/2, 1/4,
+and 3/4. But I am sure that, to write a normal Malayalam text, it is
+not required.
+
+Standards are for information exchange
+--------------------------------------
+
+Use of character set is for internal representation of data and that
+of glyphs are for showing(rendering) it.  This internal representation
+should facilitates the operations available on the text, like,
+searching for a word, viewing the document in diffent one fonts
+etc. Most importantly, it should allow document to be readable and
+editable across different software applications.
+
+Now we will have a look at how this happens in a electronic document
+scenario. Assume we have the basic character set {'ka', 'u'} and the
+glyph set {'ka', 'u', 'ku'}. A sample document contains a word 'ku' in
+it.  Internaly that file will have, only 'ka' and 'u', which are the
+basic characters. These characters will be stored adjacent in it. When
+we open it in an editor like MSWord, it will see the basic characters
+'ka' and 'u'. Then MSWord will then look into its rule table and will
+find that, when characters 'ka' and 'u' are written adjacent, the
+glyph 'ku' should be rendered. Then it will pick it from the default
+font and display it. More over, each software or its users can decide
+to display characters in their own way.  For example, let us say,
+there is a Thanima software which does not like conjunct 'ku'. It will
+look into the table and will see that there is no rules for joining
+basic characters 'ka' and 'u'; but when 'u' is coming after a
+consonant, symbol glyph of 'u' should be used. So Thanima will output
+glyphs corresponding to consonant 'ka' and symbol for 'u'. Thus, two
+software applications, reads same document and convays the information
+in two different ways.
+
+We can see that, standardization on this minimum level is enough for
+information exchange. So a Malayalam text will look like any other
+ASCII plain English text, that we open in Notepad/Wordpad. Font
+information will not be included in it. Just like, whether to view a
+plain English text in Helvetica or Times Roman is a user's choice;
+viewing a Malayalam text in Rachana font or Thanima font will again be
+a user's discretion.
+
+What should not be standardized
+-------------------------------
+
+Standardization is required for information exchange. Standardization
+for the heck of it will be waste of effort. Just like, for any other
+ideas, the need for standardization should come from necessity. And
+standardizing glyphs is not a necessity. Rather, it will make the
+system too rigid. For instance, in future, if somebody else like
+Rachana comes up with a more comprehensive one, that can not be
+incorporated in. On the otherside, if somebody does not want to make a
+font with so many glyphs, then he will not be following the
+standard. That is why people go for standardizing deeper underlying
+language structures like graphemes. This will offer enough flexibility
+and at the same time allow the basic purpose of information exchange.
+
+Enforcing standards
+-------------------
+
+It is not the government who is going to push the standards; but, the
+companies in the related business.  Publishing industry in Kerala has
+a big role to play here.  Ultimately they are going to decide how a
+common man will read and write.  That depends on the available,
+publishing softwares. Gaints like Microsoft, Mac and Adobe are after
+Unicode. So ultimately that is how future softwares are going to
+work. That is why we should participate in Unicode discussions and
+point out the errors and put forward improvement suggestion. Again
+that is why we should write softwares conforming to standards.
+  
+Fonts to suppliment Unicode
+---------------------------
+
+TTF/type1 font formats may not be flexible/powerful enough to support
+Unicode.  The new OpenType standard introduced by Adobe and Microsoft
+together, may be able to provide enough power to render Asian language
+text from its Unicode character set. Many a times, a supplimentory
+software may need to help the font in selecting the correct glyphs
+from the graphemes specified. For further reading about OpenType:
+http://partners.adobe.com/supportservice/devrelations/japan/opentype/main.htm.
+Microsoft is coming up with a Unicode complaint Indian font set called
+Mangala in Windows2000. It includes Malayalam too.  All the above
+mentioned companies have identifed the big market opertunities
+available in India for publishing softwares. Around the world, Unicode
+complaint publishing softwares for Indic scripts are in implementation
+stages.
+
+Outstanding issues on Malayalam Unicode
+---------------------------------------
+
+The issues pertaining to current Malayalam Unicode are listed by
+Jeoron Hellingman under the following link:
+http://members.tripod.com/~jhellingman/IndianScriptsUnicode.html. The
+first freely available, Malayalam font is from him.
+
+KLI standard
+------------
+
+After going through it, I felt, there are no changes from the current
+standard lipi(1970-1999).
+
+Unicode and transliteration
+---------------------------
+
+When you compare the efforts in Unicode with transliteration, a lot of
+amazing simillarities can be found. Basically both are into
+representing a text using graphemes.  In transliteration, these are
+represented using English characters; in Unicode they are represented
+using numbers. Both are essentially the same.
+
+The proposed standardization of glyphs will benifit only the Malayalam
+typists.  But Unicode and transliteration has got much longer
+impacts. Unicode will decide how Malayalam text is going to be
+internaly represented in an electronic document and transliteration
+will be the common man's way of typing Malayalam. Both demand
+immediate standardization efforts.
+
+
+Acronyms
+--------
+
+graphemes, characters  -- basic building blocks of WRITTEN script
+phonemes               -- basic building blocks of PHONETICS
+glyphs                 -- basic graphical units of a script
+
+font                   -- collection of glyphs
+character              -- complete collection of graphemes
+
+Unicode Consortium     -- international committee for standardization of
+                          character sets
+
+transliteration        -- representing graphemes of a script in graphemes of
+                          another script

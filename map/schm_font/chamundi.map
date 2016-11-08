@@ -1,0 +1,287 @@
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+#    Map file created for chamundi font by Vijil E C (vijilec@yahoo.com)
+#    on 12th June 2001
+
+	Font	      = Chamheav
+	Scheme        = mozhi
+	Comment       = {,}
+	Carry Comment = No
+	Output HTML   = No
+	Allow R dot   = No
+
+%% Double Quote
+
+"	=  ", ", \39
+
+%% Single Quote
+
+`	= " ," ,"
+'	= " ," ,"
+
+%% Symbols
+
+
+_	=
+\b      = \b
+\t      = \t
+.       = .|$
+;       = ;
+:       = :
+\,      = \,
+(       = (
+)       = )
+?       = ?
+!       = !
+%       = %
+&       = &
+*       = *
++       = +
+/       = /
+<       = <
+>       = >
+\=      = \=
+@       = @
+
+
+\0       = 0
+\1       = 1
+\2       = 2
+\3       = 3
+\4       = 4
+\5       = 5
+\6       = 6
+\7       = 7
+\8       = 8
+\9       = 9
+
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9
+
+\b\b	= \b\b|\45
+H 	= \120
+n^	= \229
+
+%% letter a
+
+a      = \65
+
+%% Vowels
+
+aa	= \66     ,         , \109    ,    \109
+i	= \67     ,         , \110    ,    \111
+ee	= \67\117 ,         , \111    ,    \111
+u	= \68     ,         , \112    ,    \113
+oo	= \68\117 ,         , \113    ,    \113
+R = \69     ,         , \114
+RR	= \69\117 ,         , \114\117
+#Ll = \102\110 
+#Lll = \102\111 
+e	= \70     , \115    ,         ,    \111
+E	= \71     , \116
+ai	= \115\70 , \115\115
+o	= \72     , \115    , \109    ,    \113
+O	= \72\109 , \116    , \109    ,    \109
+au	= \72\117 ,         , \117
+
+
+%% Consonant+Vowel
+
+#sam     = \216\162
+
+%% samvRRthOkaaram (chandrakkala)
+
+~	= \118, , \118, \118
+
+%% General Letters
+
+@	=
+
+k	= \73
+kh	= \74
+gh	= \76
+ng	= \77
+
+ch	= \78
+chh	= \79
+j	= \80
+jh	= \81
+nj	= \82
+
+p	= ]
+ph	= ^
+b	= \95
+bh	= \96
+
+sh	= \106
+h	= \108
+
+t	= \228|\193
+
+y_	= \98 , , \121
+v_	= \104 , , \122
+
+%% Sa, sa and ga
+
+S	= \105
+s	= \107
+g	= \75
+
+%% Ta vargaakshrangaL
+
+T	= \83
+Th	= \84
+Dh	= \86
+
+
+%% letter Da
+
+D	= \85
+
+%% letter Na
+
+N	= \87 , , , \172
+
+%% tha vargaakshrangaL
+#NOTE
+th	= \88
+thh	= \89
+d	= \90
+dh	= [
+
+%% letter na
+
+n	= \92 , , ,\179
+
+%% letters zha and  ya
+
+y	= \98 , , \121
+zh	= \103
+
+%% letter ma
+
+m	= \97 , , , \119
+
+%% letter La
+#L	= { , , \239|\240 , Z|\\
+L	= \102|\197 , , , \196
+
+%% letter la
+
+#l       = \220 , , \239|\240, W
+l	= \101 , , , \194
+
+%% letters ra rra
+
+rr = \100 , { , , \192, ^
+r	= \99 , { , , \192, ^
+
+%% letter va
+
+v	= \104 , , \122
+
+%% kooTTaksharangngaL
+
+kk	= \161
+ksh	= \163
+gg	= \164
+gn	= \225
+gm	= \220
+gL      = \166
+ngk	= \165
+ngng	= \167
+
+chch	= \168
+njch	= \169
+njnj	= \170
+
+TT	= \171
+
+NT	= \173
+ND	= \222
+NN	= \174
+Nm	= \215
+
+thth	= \175
+ththh	= \176
+thbh	= \219
+thm	= \223
+#thn	= y
+dd	= \177
+ddh	= \178
+
+nth	= \180
+nthh	= \217
+nd	= \181
+ndh	= \212
+nn	= \182
+nm	= \183
+nt	= \226
+
+pp	= \184
+pL    = \185
+bb	= \186
+
+mp	= \188
+mm	= \189
+mL    = \190
+
+yy	= \191
+ll	= \195
+ths	= \213
+vv	= \198
+SS	= \200
+SL    = \199
+ss	= \202
+hn	= \211
+#LL check.
+LL	= \102\197
+
+bL    = \187
+sL    = \201
+hL    = \203
+st	= \204
+DD	= \205
+kT	= \206
+bdh	= \207
+bd	= \208
+chchh	= \209
+hm	= \210
+hn	= \211
+jj	= \214
+Nm	= \215
+sthh	= \216
+jnj	= \218
+thbh	= \219
+gm	= \220
+Sch	= \221
+kth	= \224
+shT	= \227
+kL	= \162
+
+%% macro

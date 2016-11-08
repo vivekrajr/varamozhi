@@ -1,0 +1,241 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	Font          = RE_iNFOM-Kaveri
+	Scheme        = mozhi
+	Comment       = {, }
+	Carry Comment = No
+	Output HTML   = No
+	Allow R dot   = No
+
+
+%% Double Quote
+
+" = \147 , \147 , \148
+
+%% Single Quote
+
+`	= ` , `|\145 , '|\146
+'	= ' , `|\145 , '|\146
+
+%% Symbols
+
+	= -
+\b	= \b|\160
+\t      = \t
+_	=
+-	= _
+:	= \242
+H 	= :
+n^	= \163\231\241
+<heavy dot>	= \149
+<box>	= \127|\128|\129
+	
+
+\0       = 0
+\1       = 1
+\2       = 2
+\3       = 3
+\4       = 4
+\5       = 5
+\6       = 6
+\7       = 7
+\8       = 8
+\9       = 9
+
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9
+	
+%% letter a
+
+a	= \130
+	
+%% Vowels
+
+aa	= \131    ,         ,     \228,     \228
+i	= \132    ,         ,     \229,     \230
+ee	= \132\237,         ,     \230,     \230
+u	= \133    ,         ,     \231,     \232
+oo	= \133\237,         ,     \232,     \232
+R = \134    ,         ,     \233
+RR	= \134\237,         , \233\237
+Ll = \177\229,         , \251\229
+Lll = \177\230,         , \251\230
+e	= \135    ,     \235,         ,     \230
+E	= \136    ,     \236
+ai	= \235\135, \235\235
+o	= \137    ,     \235,     \228,     \232
+O	= \137\228,     \236,     \228,     \228
+au	= \137\237,         ,     \237
+
+
+%% Consonant+Vowel
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~	= \241 , , \241, \241
+
+%% General Letters
+
+@	=
+
+k	= \138
+kh	= \139
+gh	= \141
+ng	= \142
+
+ch	= \143
+chh	= \144
+j	= \150
+jh	= \151
+nj	= \152
+
+p	= \164,,\247
+ph	= \165
+b	= \166
+bh	= \167
+
+sh	= \174
+h	= \176
+
+t	= \221
+
+y_	= \169 , , \240
+v_	= \172 , , \234
+
+%% Sa, sa, and ga
+
+S	= \173,,\243
+s	= \175,,\246
+g	= \140,,\250
+
+%% Ta vargaakshrangaL
+
+T	= \153,, \249
+Th	= \154
+Dh	= \156
+
+%% letter Da
+
+D	= \155,,\252
+
+%% letter Na
+
+N	= \157 , ,\245 , \184
+
+%% tha vargaakshrangaL
+
+th	= \158,,\253
+thh	= \159
+d	= \161,,\255
+dh	= \162,,\248
+
+%% letter na
+
+n	= \163 , ,\254 , \181
+
+%% letters ya and zha
+
+y	= \169 , , \240
+zh	= \178
+
+%%  letter ma
+
+m	= \168 , ,\244 , \239
+
+%%  letter La
+
+L	= \177 , , \251, \183
+
+%% letter la
+
+l	= \171 , , \251, \182
+
+%%  letters ra rra
+
+r	= \170 , \238 , , \180
+rr = \179 , \238 , , \180
+
+%% letter va
+
+v	= \172 , , \234
+
+%% kooTTaksharangngaL 
+
+kk	= \185
+ksh	= \186
+gn	= \187
+ngk	= \188
+ngng	= \189
+
+chch	= \190
+chchh	= \191
+jj	= \192
+jnj	= \193
+njch	= \194
+njj	= \195
+njnj	= \196
+
+TT	= \197
+
+NT	= \198
+ND	= \199
+
+thth	= \200
+ththh	= \201
+thbh	= \202
+thm	= \203
+ls	= \204
+dd	= \205
+ddh	= \206
+
+nth	= \207
+nthh	= \208
+nd	= \209
+ndh	= \210
+nn	= \211
+nm	= \212
+nt	= \222
+
+pp	= \213
+bb	= \214
+
+mp	= \215
+mm	= \216
+
+yy	= \217
+ll	= \218
+vv	= \219
+Sch	= \223
+sthh	= \224
+st	= \225
+hn	= \226
+hm	= \227
+LL	= \220
+
+%% macro

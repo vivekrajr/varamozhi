@@ -1,0 +1,12 @@
+
+.			{ yylval.str = (char *) strdup((char *)yytext);
+			  return ENGLISH;
+			}
+\n			{ yylval.str = (char *) strdup((char *)yytext);
+			  return SYMBOL;
+			}
+%%
+
+int yywrap() {
+	return 1;
+}

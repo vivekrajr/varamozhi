@@ -1,0 +1,302 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	Font	= ML-TTKarthika
+	Scheme = mozhi
+	Comment = {,}
+	Carry Comment = No
+	Output HTML = No
+	Allow R dot = No
+
+
+%% Double Quote
+
+#" =   \147, \147, \148
+" =   "", "", ''
+
+%% Single Quote
+
+' =   ", ", '
+` =   ', ", '
+#`	= \145, \145 , \146 
+#'	= \146, \145 , \146 
+
+%% Symbols
+
+_	=
+0x00AD  = -
+\b\b	= \160
+H 	= x
+-	= \254
+\b 	= \b
+\t      = \t
+
+.       = .
+;       = ;
+:       = :
+\,      = \,
+(       = (
+)       = )
+?       = ?
+!       = !
+*       = *|$
+%       = %
+&       = &
++       = +
+/       = /
+<       = <
+>       = >
+\=      = \=
+
+
+\0       = 0
+\1       = 1
+\2       = 2
+\3       = 3
+\4       = 4
+\5       = 5
+\6       = 6
+\7       = 7
+\8       = 8
+\9       = 9
+
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9
+	
+n^	= \238
+
+%% letter a
+
+a	= A
+	
+%% Vowels
+
+aa = A  = B ,   ,  m,  m
+i	= C ,   ,  n,  o
+ee = ii = Cu,   ,  o,  o
+u	= D ,   ,  p,  q
+oo = uu = Du,   ,  q,  q
+R       = E ,   ,  r
+RR	= Eu,   , ru
+#Ll     = fn
+#Lll    = fo
+e	= F ,  s,   ,  o
+E	= G ,  t
+ai	= sF, ss,
+o	= H ,  s,  m,  q
+O	= Hm,  t,  m,  m
+au	= Hu,   ,  u
+ou	= Hu,  s,  u
+
+
+%% Consonant+Vowel
+
+ku	= \230
+kku	= \231
+ngku	= \232
+Nu	= \233
+nu	= \235
+nnu	= \236
+yu	= bp, ,\|
+yoo	= bq, ,}
+ru	= \234, { , p
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~	= v , , v, v
+
+%% General Letters
+
+@	=
+
+k	= I
+kh	= J
+gh	= L
+ng	= M
+
+ch	= N
+chh	= O
+j	= P
+jh	= Q
+nj	= R
+
+p	= ]
+ph	= ^
+b	= _
+bh	= `
+
+sh	= j
+h	= l
+
+t	= \228|\193
+
+y_	= b , , y
+v_	= h , , z
+
+%% Sa, sa and ga
+
+S	= i
+s	= k
+g	= K
+
+%% Ta vargaakshrangaL
+
+T	= S
+Th	= T
+Dh	= V
+
+%% letter Da
+
+D	= U
+
+%% letter Na
+
+N	= W , , , \172
+
+%% tha vargaakshrangaL
+
+th	= X
+thh	= Y
+d	= Z
+dh	= [
+
+%% letter na
+
+n	= \\ , , , \179
+
+%% letters zha and ya
+
+y	= b , , y
+zh	= g
+
+%%  letter ma
+
+m	= a , , , w
+
+%%  letter La
+
+L	= f , , , \196
+
+%% letter la
+
+l	= e , , , \194
+
+%%  letters ra rra
+
+rr = d , { , , \192
+r	= c , { , , \192
+
+%% letter va
+
+v	= h , , z
+
+%% kooTTaksharangngaL 
+
+kk	= \161
+kT	= \206
+kth	= \224
+kL  = kl   = \162
+ksh	= \163
+gg	= \164
+gthh	= \220
+gn	= \225
+gm	= \220
+gL = gl    = \165
+ngk	= \166
+ngng	= \167
+
+chch	= \168
+chchh	= \209
+jj	= \214
+jnj	= \218
+njch	= \169
+njnj	= \170
+
+TT	= \171
+DD	= \205
+
+NT	= \173
+ND	= \222
+NN	= \174
+Nm	= \215
+
+thth	= \175
+ththh	= \176
+thbh	= \219
+thm	= \223
+ths	= \213
+dd	= \177
+ddh	= \178
+
+nth	= \180
+nthh	= \217
+nd	= \181
+ndh	= \212
+nn	= \182
+nm	= \183
+nt	= \226 | \179d
+
+pp	= \184
+pL = pl    = \185
+bd	= \208
+bdh	= \207
+bb	= \186
+bL = bl    = \187
+
+mp	= \188
+mm	= \189
+mL = ml    = \190
+
+yy	= \191
+ykk	= \237
+ll	= \195
+lp	= \229
+vv	= \198
+Sch	= \221
+SL = Sl    = \199
+SS	= \200
+shT	= \227
+sL = sl    = \201
+ss	= \202
+sthh	= \216
+st	= \204
+hn	= \211
+hm	= \210
+hL = hl    = \203
+LL 	= \197
+ths	= \213
+
+%% macro
+
+# real solution will be split consonant+vowel catagory into 2:
+# for r + kku, r should form its 'noadd' form
+# for r + yu, r should form its 'add' form which it does now. 
+#
+# but doing this modificaitno is painful just for this case in karthika
+
+rkku    = r_kku

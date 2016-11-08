@@ -1,0 +1,209 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	Font	= Karthika
+	Scheme = mozhi
+	Comment = {,}
+	Carry Comment = No
+	Output HTML = No
+	Allow R dot = No
+
+
+%% Double Quote
+
+" = , ,
+
+%% Single Quote
+
+`	= , ,
+'	= , ,
+
+%% Symbols
+
+_	=
+H 	=
+
+
+\b 	=
+\t      =
+
+.       =
+;       =
+:       =
+\,      = ,
+(       =
+)       =
+?       =
+!       =
+*       =
+%       =
+&       =
++       =
+/       =
+<       =
+>       =
+\=      = \=
+-	=
+
+
+\0       =
+\1       =
+\2       =
+\3       =
+\4       =
+\5       =
+\6       =
+\7       =
+\8       =
+\9       =
+
+0       =
+1       =
+2       =
+3       =
+4       =
+5       =
+6       =
+7       =
+8       =
+9       =
+	
+n^	=
+
+%% letter a
+
+a	=
+	
+%% Vowels
+
+aa = A  = , ,  ,
+i	= , ,  ,
+ee = ii = , ,  ,
+u	= , ,  ,
+oo = uu = , ,  ,
+R       = , ,
+RR	= , ,
+#Ll     =
+#Lll    =
+e	= , ,   ,
+E	= ,
+ai	= , ,
+o	= , ,  ,
+O	= , ,  ,
+au	= , ,
+ou	= , ,
+
+
+%% Consonant+Vowel
+
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~	= , , ,
+
+%% General Letters
+
+@	=
+
+k	=
+kh	=
+gh	=
+ng	=
+
+ch	=
+chh	=
+j	=
+jh	=
+nj	=
+
+p	=
+ph	=
+b	=
+bh	=
+
+sh	=
+h	=
+
+t	=
+
+y_	= , ,
+v_	= , ,
+
+%% Sa, sa, ga
+
+S	=
+s	=
+g	=
+
+%% Ta vargaakshrangaL
+
+T	=
+Th	=
+Dh	=
+
+%% letter Da
+
+D	=
+
+%% letter Na
+
+N	= , , ,
+
+%% tha vargaakshrangaL
+
+th	=
+thh	=
+d	=
+dh	=
+
+%% letter na
+
+n	= , , ,
+
+%% letters zha and ya
+
+y	= , ,
+zh	=
+
+%%  letter ma
+
+m	= , , ,
+
+%%  letter La
+
+L	= , , ,
+
+%% letter la
+
+l	= , , ,
+
+%%  letters ra rra
+
+rr = , , ,
+r	= , , ,
+
+%% letter va
+
+v	= , ,
+
+%% kooTTaksharangngaL 
+
+%% macro
+

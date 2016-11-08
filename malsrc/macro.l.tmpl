@@ -1,0 +1,102 @@
+
+%e 2000
+%k 3000
+%a 6000
+%o 8000
+
+
+%{
+#include <stdlib.h>
+#include "strstruct.h"
+#include "mal-type.h"
+
+extern STRSTRUCT halfcooked;
+extern BOOLEAN   debug;
+
+/* <NONSTART> means what we just now read was a CHAR character */
+
+%}
+
+%option nounput
+%option noyywrap
+
+%x NONSTART
+%x COMMENT_CURL
+%x COMMENT_ANGLE
+
+/* _ is required in CHAR because without that 'poor_vam' will be considered 2 words and one is 'poor'
+ * otherwise '..ment_house' will not get 'house' converted properly */
+
+CHAR  [-a-zA-Z^~_]
+SPACE [^-a-zA-Z^~_#]
+
+%%
+
+\\#                   {
+                         str_append( halfcooked, "#" );
+                      }
+
+<INITIAL,NONSTART>"{" {
+			 BEGIN(COMMENT_CURL);
+			 str_append( halfcooked, yytext );
+		      }
+
+
+<COMMENT_CURL>[^}]*   {
+                         str_append( halfcooked, yytext );
+		      }
+
+<COMMENT_CURL>"\\}"   {
+                         str_append( halfcooked, yytext );
+                      }
+
+<COMMENT_CURL>"}"     {
+                         str_append( halfcooked, yytext );
+                         BEGIN(INITIAL);
+		      }
+
+
+<INITIAL,NONSTART>"<" {
+			 BEGIN(COMMENT_ANGLE);
+			 str_append( halfcooked, yytext );
+		      }
+
+
+<COMMENT_ANGLE>[^>]*  {
+                         str_append( halfcooked, yytext );
+		      }
+
+<COMMENT_ANGLE>"\\>"  {
+                         str_append( halfcooked, yytext );
+                      }
+
+<COMMENT_ANGLE>">"    {
+                         str_append( halfcooked, yytext );
+                         BEGIN(INITIAL);
+		      }
+
+{CHAR}*#           {
+		       yytext[yyleng - 1] = 0;
+                       str_append( halfcooked, yytext );
+                   }
+
+{SPACE}            {
+                       str_append( halfcooked, yytext );
+                   }
+
+<NONSTART>{SPACE}  {
+                       BEGIN(INITIAL);
+                       str_append( halfcooked, yytext );
+                   }
+
+/* insert here */
+
+{CHAR}             {
+                       BEGIN(NONSTART);
+                       str_append( halfcooked, yytext );
+                   }
+
+<NONSTART>{CHAR}   {
+                       str_append( halfcooked, yytext );
+                   }
+%%

@@ -1,0 +1,80 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+#
+#------------------------- Seting variables ---------------------------
+#
+
+
+FONT = kerala
+#FONT = karthika
+#FONT = manorama
+#FONT = chowara
+#FONT = thoolika
+
+SCHEME = mozhi
+
+# root directory of unziped varamozhi package
+# SRCDIR = /cygdrive/j/varamozhi-win/varamozhi
+# SRCDIR = /autohome/cjohny/varamozhi-win/varamozhi
+
+# location of scheme file
+MAPDIR  = $(SRCDIR)/map/merged
+
+# scheme file's SRCDIR
+MAP = $(SCHEME)_$(FONT)
+
+MALSRC = $(SRCDIR)/malsrc
+COMMON = $(SRCDIR)/common
+MALLIB = lib$(MAP).a
+COMLIB = libstr.a
+SRCZIP = $(MAP).zip
+
+CC      = gcc
+#CC     = cc -Aa
+#CFLAGS  = -Wall -O3 -I$(COMMON) -I$(MALSRC)
+CFLAGS  = -O3 -I$(COMMON) -I$(MALSRC)
+
+ifneq (,$(findstring CYGWIN,$(shell uname)))
+OS = windows
+else
+OS = unix
+endif
+
+ifeq ($(OS), windows)
+CFLAGS += -static -static-libgcc
+endif
+
+ifeq ($(OS), unix)
+CFLAGS += -Wall -ggdb -g3
+ESC     = \#
+endif
+
+#CFLAGS  = -Wall -ggdb -g3 -I$(COMMON) -I$(MALSRC)
+PFLAGS  = -ggdb -g3
+
+# object archive
+AR     = ar rc
+
+SCANNER = flex -8 -CF
+PARSER  = bison -d
+
+RM = /bin/rm -rf
+

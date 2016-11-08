@@ -1,0 +1,12 @@
+
+.|\n			{ yylval.str = yytext;
+			  return UNKNOWN;
+			}
+
+%%
+
+/*
+int yywrap() {
+	return 1;
+}
+*/

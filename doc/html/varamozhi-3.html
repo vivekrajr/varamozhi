@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>Varamozhi: Installation</TITLE>
+ <LINK HREF="varamozhi-4.html" REL=next>
+ <LINK HREF="varamozhi-2.html" REL=previous>
+ <LINK HREF="varamozhi.html#toc3" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="varamozhi-4.html">Next</A>
+<A HREF="varamozhi-2.html">Previous</A>
+<A HREF="varamozhi.html#toc3">Contents</A>
+<HR>
+<H2><A NAME="s3">3. Installation</A></H2>
+
+<H2><A NAME="ss3.1">3.1 Distribution structure</A>
+</H2>
+
+<P>
+<DL>
+<DT><B>Samarpanam.gif</B><DD><P>&nbsp;
+<DT><B>README</B><DD><P>&nbsp;
+<DT><B>Makefile</B><DD><P>&nbsp;
+<DT><B>schm_schm</B><DD><P>Sample mapfiles for conversion from
+one scheme to mozhi scheme
+<DT><B>schm_font</B><DD><P>Sample mapfiles from mozhi scheme to
+some of the available fonts
+<DT><B>malsrc</B><DD><P>Source code for transliteration from
+English to Malayalam script
+<DT><B>lamsrc</B><DD><P>Source code for transliteration from
+Malayalam to English script
+<DT><B>win</B><DD><P>Contains additional .c files required for
+compilation in Windows environment.
+<DT><B>bin</B><DD><P>Will contain executables and .c/.h files
+after the build. Its structure will be
+<DT><B>doc</B><DD><P>Documentation in sgml, html, ascii and ps
+</DL>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+bin ----- malbin ------ schm_schm ---- &lt;binary files for schm2schm&gt;
+  |              |
+  |              +----- schm_font ---- &lt;binary files for schm2font&gt;
+  |
+  +------ lambin ------ schm_schm ---- &lt;binary files for schm2schm&gt;
+  |              |
+  |              +----- schm_font ---- &lt;binary files for schm2font&gt;
+  |
+  +------ malapi ------ schm_schm ---- &lt;schemes&gt; -- .[ch] files
+                 |
+                 +----- schm_font ---- &lt;fonts&gt; ---- .[ch] files
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<H2><A NAME="ss3.2">3.2 Requirements</A>
+</H2>
+
+<P>
+<OL>
+<LI> Perl 5</LI>
+<LI> flex</LI>
+<LI> yacc or bison</LI>
+<LI> An ANSI C compiler `like' gcc</LI>
+</OL>
+<P>Perl is available from 
+<A HREF="http://language.perl.com/info/software.html">http://language.perl.com/info/software.html</A>
+and flex, bison, and gcc from 
+<A HREF="http://www.gnu.org/order/ftp.html">http://www.gnu.org/order/ftp.html</A><P>
+<P>
+<H2><A NAME="ss3.3">3.3 Steps for installation</A>
+</H2>
+
+<P>
+<OL>
+<LI> <CODE>unzip varamozhi.zip</CODE>
+</LI>
+<LI> change directory to <CODE>varamozhi/</CODE>
+</LI>
+<LI> Sample configuration files are given in <CODE>varamozhi/schm_schm/</CODE>
+and <CODE>varamozhi/schm_font/</CODE>. The files in the first directory
+map between two transliteration schemes and the second one
+between a font and a transliteration scheme. So these
+configuration files are called mapfiles. They can be used as
+they are or modified for different scheme and font. Syntax and
+semantics of the entries in a <EM>mapfile</EM> are explained in
+a section below.
+</LI>
+<LI> Following variables may be edited in <CODE>varamozhi/Makefile</CODE>.
+
+<UL>
+<LI> <CODE>SCHMLIST</CODE> representing the mapfiles to be used; typically
+for scheme to scheme conversion.</LI>
+<LI> <CODE>SCHMDIR</CODE> representing the directory where mapfiles
+specified by <CODE>$SCHMLIST</CODE> are found.</LI>
+<LI> <CODE>FONTLIST</CODE> representing the mapfiles to be used; typically
+for scheme to font conversion.</LI>
+<LI> <CODE>FONTDIR</CODE> representing the directory where mapfiles
+specified by <CODE>$FONTLIST</CODE> are found.</LI>
+<LI> <CODE>PARSER</CODE> will specify the parser generator to be used.
+It should be <EM>yacc</EM> like. One choice other than yacc
+would be <EM>bison</EM>.</LI>
+<LI> <CODE>BINDIR</CODE> is the directory where binaries will be created.</LI>
+</UL>
+
+
+<EM>Note:</EM> The mapfiles given has .map extension. But this
+extension should not be specified in <CODE>$SCHMLIST</CODE> or <CODE>$FONTLIST</CODE>.
+</LI>
+<LI> <B><CODE>make</CODE></B>
+
+This will create all the executables for scheme to scheme
+and scheme to font conversion in <CODE>varamozhi/bin/malbin/*</CODE>.
+Similarly executables doing the reverse in
+<CODE>varamozhi/bin/lambin/*</CODE>.
+
+<UL>
+<LI> For generating executables for
+forward conversion (English to Malayalam) only, do
+<CODE>make mal</CODE>.</LI>
+<LI> For reverse conversion, do <CODE>make lam</CODE>.</LI>
+<LI> <CODE>make api</CODE> will generate the API functions for forward
+conversion.
+This creates all the <CODE>.c</CODE> and <CODE>.h</CODE> files; but will not make
+the executable. All the required <CODE>.c</CODE> and <CODE>.h</CODE> files are copied
+to <CODE>varamozhi/bin</CODE> directory.
+  </LI>
+</UL>
+
+</LI>
+<LI> <B><CODE>make clean</CODE></B> (optional)</LI>
+</OL>
+<P>
+<P>
+<H2><A NAME="ss3.4">3.4 Installing on HP</A>
+</H2>
+
+<P>May need  <CODE>-Xa1000</CODE> option for flex.
+<P>
+<P>
+<H2><A NAME="ss3.5">3.5 Installing on NT/Windows</A>
+</H2>
+
+<P>You need to have a cross platform CASE tool which will
+give you flex and yacc. Two such case tools are:
+<P>
+<UL>
+<LI> 
+<A HREF="ftp://ftp.cygnus.com/pub/gnu-win32/latest/">ftp://ftp.cygnus.com/pub/gnu-win32/latest/</A> - From Cygnus Solutions</LI>
+<LI> 
+<A HREF="http://www.research.att.com/sw/tools/uwin/">http://www.research.att.com/sw/tools/uwin/</A> - From <EM>AT&amp;T</EM> (this requires a native C compiler)
+</LI>
+</UL>
+<P>If you are using these tools, you may need to edit
+make variable like <CODE>$PARSER</CODE> and <CODE>$SCANNER</CODE> accordingly.
+<P>
+<P>If you could reach up to the <CODE>.c</CODE> and <CODE>.h</CODE> files in a Unix
+machine and just want to make the <CODE>.exe</CODE> in NT/windows,
+take <CODE>.c/.h</CODE> files from <CODE>varamozhi/bin/malapi/&lt;schm_..&gt;/&lt;font_or_scheme&gt;/</CODE>
+directory and <CODE>alloca.c</CODE> and <CODE>getopt.c</CODE> from <CODE>varamozhi/win/</CODE>,
+put them in MS machine and do the compilation as:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+    cl /Femal.exe y.tab.c lex.yy.c alloca.c getopt.c
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<H2><A NAME="ss3.6">3.6 Configuring for a particular font and scheme</A>
+</H2>
+
+<P>The <CODE>.map</CODE> file maps between the transliteration scheme and
+the font. <CODE>varamozhi/schm_font</CODE> and <CODE>varamozhi/schm_schm</CODE>
+has few sample mapfiles. In this section we look at the syntax of mapfile
+entries.
+A mapfile has following sections:
+<OL>
+<LI>  General</LI>
+<LI>  Double Quote Symbol</LI>
+<LI>  Single Quote Symbol</LI>
+<LI>  Other Symbols (<EM>`chihnangngaL'</EM>)</LI>
+<LI>  letter - <EM>`a'</EM> (the first vowel)</LI>
+<LI>  Rest of the vowels (<EM>`svarangngaL'</EM>)</LI>
+<LI>  Consonant+vowel conjuncts (<EM>`vyanjjanam+svaram'</EM>)</LI>
+<LI>  <EM>`samvr^thOkaaram'</EM> (popularly known as <EM>`chandrakkala'</EM>)</LI>
+<LI>  General Consonants</LI>
+<LI>  <EM>`ga, Sa'</EM> and <EM>`sa'</EM></LI>
+<LI> <EM>`Ta-vargam'</EM></LI>
+<LI> Letter  - <EM>`Da'</EM></LI>
+<LI> Letter  - <EM>`Na'</EM></LI>
+<LI> <EM>`tha-vargam'</EM></LI>
+<LI> Letter  - <EM>`na'</EM></LI>
+<LI> Letter  - <EM>`ya'</EM></LI>
+<LI> Letter  - <EM>`la'</EM></LI>
+<LI> Letters - <EM>`La'</EM> and <EM>`ma'</EM></LI>
+<LI> Letters - <EM>`ra'</EM> and <EM>`Ra'</EM></LI>
+<LI> Letter  - <EM>`va'</EM></LI>
+<LI> Conjunct Ligatures (<EM>`kooTTaksharangngaL'</EM>)</LI>
+</OL>
+<P>
+<H3>General</H3>
+
+<P>This section provides the information which is not the
+part of transliteration scheme definition.
+<P>
+<UL>
+<LI> Before starting all sections font name should be provided
+as <CODE>Font = &lt;font_name&gt;</CODE>. This font name will be used
+in the HTML font tag when output in in HTML.
+</LI>
+<LI> The characters used to comment out the text from processing
+is defined as <CODE>Comment = &lt;Left_comment_tag&gt;, &lt;Right_comment_tag&gt;</CODE>.
+</LI>
+<LI> Transliteration directive <CODE>Carry Comment = Yes/No</CODE>. <CODE>No</CODE> is
+the default. See detailed discussion on usage of <CODE>-c</CODE> flag of <CODE>mal</CODE>.
+   </LI>
+<LI> Transliteration directive <CODE>Output HTML = Yes/No</CODE>. <CODE>No</CODE> is
+the default. See detailed discussion on usage of <CODE>-h</CODE> flag of <CODE>mal</CODE>.
+   </LI>
+<LI> Transliteration directive <CODE>Allow R Dot = Yes/No</CODE>. <CODE>No</CODE> is
+the default. See detailed discussion on usage of <CODE>-r</CODE> flag of <CODE>mal</CODE>.</LI>
+</UL>
+<P>
+<H3>Other Sections</H3>
+
+<P>Please read section 
+<A HREF="varamozhi-6.html#def">definitions</A>.
+<P>
+<P>All other sections start with the special tag `%%'. All
+lines before next `%%' or end of file will be in that section.
+That is nth section will start with n<SUP>th</SUP> `%%' tag.
+Each line in a section will contain a number of fields separated
+by `='. Except the last, all fields will represent same
+letter or symbol. The program <CODE>lam</CODE> will use only the
+first string while transliteration. Font information is
+encoded in the last field. This field will have at the
+most four subfields separated by commas. These subfields
+are explained below.
+<P>
+<P>The first subfield will represent the independent glyph,
+the second and third subfields will represent right and
+left sign glyphs respectively.  The last one will represent
+the chillu glyph. Each subfield should
+represent the corresponding font key stroke. If that key
+stoke is not a normal typewriter character (an <CODE>Alt+</CODE> key
+combination) you need to write its decimal ASCII number
+quoted with a slash (eg : <CODE>\147</CODE>). Now if more than two key
+strokes represent same glyph, then write all of them as
+<CODE>|</CODE> (pipe symbol) separated (eg: <CODE>\147|\148</CODE>). The program <CODE>mal</CODE> will
+use only the first one. That is <CODE>\147</CODE> from previous example.
+<P>
+<H2><A NAME="ss3.7">3.7 Characters having special meanings</A>
+</H2>
+
+<P>
+<UL>
+<LI>  <CODE>, =</CODE> and <CODE>|</CODE> are used as field separators.</LI>
+<LI>  The blank lines and blanks are ignored.</LI>
+<LI>  <CODE>#</CODE> is used for commenting.</LI>
+<LI>  Following characters should be quoted using
+backslash: <CODE># , \ = |</CODE></LI>
+<LI>  <CODE>\b</CODE> represents single space.</LI>
+<LI>  <CODE>\n</CODE> represents newline character.</LI>
+</UL>
+<P>
+<P>All symbols which are not specified in the `mapfile' will
+be copied as such and will be considered as Malayalam
+characters when font tags are attached in the HTML output.
+<P>
+<P>
+<P>
+<HR>
+<A HREF="varamozhi-4.html">Next</A>
+<A HREF="varamozhi-2.html">Previous</A>
+<A HREF="varamozhi.html#toc3">Contents</A>
+</BODY>
+</HTML>

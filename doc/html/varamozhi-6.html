@@ -1,0 +1,451 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>Varamozhi: Formalisation</TITLE>
+ <LINK HREF="varamozhi-7.html" REL=next>
+ <LINK HREF="varamozhi-5.html" REL=previous>
+ <LINK HREF="varamozhi.html#toc6" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="varamozhi-7.html">Next</A>
+<A HREF="varamozhi-5.html">Previous</A>
+<A HREF="varamozhi.html#toc6">Contents</A>
+<HR>
+<H2><A NAME="s6">6. Formalisation</A></H2>
+
+<P>In the model the author uses, a sequence of one or more
+characters to represent each Malayalam letter. In the following
+sections, with the help of few definitions, we will see algorithms for
+generating Malayalam script from the character stream representing
+Malayalam text. Its implementation is mentioned in the last section.
+<P>
+<P>In this section, Malayalam text will appear within single
+quotes(') written using Mozhi scheme described in chapter 
+<A HREF="varamozhi-5.html#mozhi">Mozhi 7 bit transliteration scheme</A>.
+Plus(+) is used as the string concatenation operator and
+forward slash (/) indicates either the string before or the string
+after the forward slash or both are under consideration.
+<P>
+<P>
+<H2><A NAME="ss6.1">6.1 Deviations from Malayalam Scripting Conventions</A>
+</H2>
+
+<P>We assume following deviations from the traditional Malayalam
+scripting conventions. This is for the ease of generalisation of
+transliteration properties.
+<P>
+<P>
+<UL>
+<LI> Consonant letters are considered without the default <EM>`a'</EM> vowel
+sound along with it.
+</LI>
+<LI> <EM>`anuswaaram'</EM>(anuswara) is considered to be the <EM>`chillu'</EM> (pure) form
+of <EM>`ma'</EM>.
+</LI>
+<LI> <EM>`samvr^thOkaaram'</EM>(halant or virama) has got two functions in
+Malayalam scripting.
+
+<UL>
+<LI> As a joiner to indicate the conjunct of two consonants.</LI>
+<LI> As the half-<EM>`u'</EM> vowel. It is used only at the end of a word
+(ex: <EM>`ath~'</EM>) and is applicable in new orthography only. In old
+orthography this usage is found north Kerala. In south Kerala,
+half-<EM>`u'</EM> is written as the combination of sign for <EM>`u'</EM> and the
+halant sign. [
+<A HREF="#ar">Keralapaniniyam</A>,
+<A HREF="#kunjan">Malayalam Lexicon</A>]</LI>
+</UL>
+
+
+In this paper semantics of halant is first one only. For that, it is
+considered as a vowel without any sound.
+</LI>
+<LI>  <EM>`visargam'</EM>(visarga) and <EM>`praSLEsham'</EM>(avagraha) are symbols.</LI>
+</UL>
+<P>
+<H2><A NAME="def"></A> <A NAME="ss6.2">6.2 Definitions </A>
+</H2>
+
+<P>
+<DL>
+<DT><B>Letter:</B><DD><P>Letters are the basic phonetic building blocks of a language.
+Along with the sound it has one or more graphical forms also.
+<P>
+<DT><B>Symbol:</B><DD><P>In contrast to a letter, a <EM>symbol</EM> does not have its own
+phonetic identity (ex: coma, colon or visarga).
+<P>
+<DT><B>Literal:</B><DD><P>Literal is a sequence of letters which has a single
+fused graphical form when written either independently or
+combined with any other letters (ex: <EM>`n'</EM>, <EM>`nn'</EM> and
+<EM>`yu'</EM>). Usually it includes all letters and all conjunct
+forms consisting of two or more letters. Literals representing
+the letters are called base literals and those representing
+the conjunct forms are called derived literals. Size of a
+literal is the number of characters being used to represent
+that literal in the given transliteration scheme.  |x|  operator
+denote the size of the literal x with respect to that
+scheme. A literal can also be classified as vocal or
+consonantal depending on whether it can be pronounced
+independently or not.
+<P>Concept of literals is closely linked to fonts or some code
+for information interchange in general. Whether a character
+sequence has a single fused graphical form or not, can be
+decided only by analysing that code.
+<P>
+<DT><B>Glyph:</B><DD><P>graphical form of a literal or symbol.
+<P>
+<DT><B>Text:</B><DD><P>It refers to the sequence of characters representing
+transliterated Malayalam. It can also be interpreted as a
+sequence of literals and symbols represented by that character
+stream.
+<P>
+<DT><B>Script:</B><DD><P>sequence of glyphs denoting a text.
+<P>
+<DT><B>Transliteration:</B><DD><P>the representation of the glyphs of a source script
+by the glyphs of a target script. In our description, source
+script is Malayalam and target script is English.
+<P>
+<DT><B>Reverse transliteration:</B><DD><P>the process whereby the glyphs of a target
+script are transliterated into those of the source script.
+<P>
+<DT><B>Conjunct:</B><DD><P>a sequence of literals such that all the literals other than
+the last are consonantal literals. Last literal can be either
+vocal or consonantal. (eg: In the conjunct <EM>`sva'</EM>, <EM>`s'</EM> is the
+first literal, <EM>`v'</EM> is the second and <EM>`a'</EM> is the third. More
+over, <EM>`svar'</EM> is not a conjunct because the vocal literal <EM>`a'</EM>
+does not come as the last literal.)
+<P>
+<DT><B>Context:</B><DD><P>Context of a literal refers to its neighbourhood in a text.
+There are two different contexts for a literal. One is the
+lexical context and other is the phonetical context. By
+default context means phonetical context. A literal can have
+null neighbourhood also. That is, when no other sound is
+pronounced along with it.
+</DL>
+<P>A detailed list of related definitions can be found in [
+<A HREF="#stone">Antony P. Stone's transliteration page</A>].
+<P>
+<H3>Different Glyphs of a Literal</H3>
+
+<P>A literal assumes different glyphs depending on its
+context. They are classified as following:
+<P>
+<DL>
+<DT><B>Independent glyph</B><DD><P>A vocal literal assumes independent glyph in null context. (eg:
+graphical form to represent a single <EM>`o'</EM> sound). Any consonant
+literal X assumes independent glyph in the conjunct X + <EM>`a'</EM>. (eg:
+graphical form of <EM>`ka'</EM>)
+<P>
+<DT><B>Sign glyph or Partial glyph</B><DD><P>Graphical form of the literal when it appears last in a two literal
+conjunct. (eg: graphical form of <EM>`o'</EM> in <EM>`ko'</EM>; form of <EM>`ya'</EM> in <EM>`kya'</EM>
+and form of <EM>`na'</EM> in <EM>`sna'</EM>). It can have two parts which come on
+left and right of the independent glyph of the first literal.  They
+are called "left sign glyph" and "right sign glyph"
+respectively. (eg: in <EM>`ko'</EM>, <EM>`o'</EM> has both sign glyphs. In <EM>`kya'</EM>, <EM>`y'</EM>
+has only right sign glyph and in <EM>`kra'</EM>, <EM>`r'</EM> has only left sign
+glyph). More over, all the vocal literals except <EM>`a'</EM> have sign
+glyphs.
+<P>
+<P>The literal <EM>`v'</EM> has two right sign glyphs. The sign glyph which
+appears when first literal is not <EM>`y'</EM> or <EM>`zh'</EM> is called primary
+right sign glyph of <EM>`v'</EM>. The one which appears with <EM>`y'</EM> and <EM>`zh'</EM> is
+called secondary right sign glyph of <EM>`v'</EM>.  For example, see the
+words <EM>`svapnam'</EM>, <EM>`vaazhv~'</EM> and <EM>`meyvazhakkam'</EM>.
+<P>
+<DT><B>Chillu glyph</B><DD><P>Only <EM>`N'</EM>, <EM>`n'</EM>, <EM>`m'</EM>, <EM>`r'</EM>, <EM>`l'</EM>, <EM>`L'</EM> and <EM>`rr'</EM> have single fused glyph
+in null context. Those glyphs are called chillu glyphs. (In old
+orthography <EM>`k'</EM> and <EM>`y'</EM> also had chillu glyphs. Described in 
+<A HREF="#gundert">Gundert's Dictionary</A>.)
+<P>
+<P>The chillu glyphs of <EM>`r'</EM> and <EM>`rr'</EM> are same. There are two different
+chillu glyphs for <EM>`r/rr'</EM>. The graphical form <EM>`r'</EM> assumes when it is
+the last literal of a word, is called primary chillu glyph of
+<EM>`r/rr'</EM> (eg: graphical form of <EM>`r'</EM> in <EM>`avar'</EM>). The chillu glyph of
+<EM>`r'</EM> as a dot over the next consonant in the word is called
+secondary chillu glyph of <EM>`r/rr'</EM> (eg: graphical form of <EM>`r'</EM> in the
+word <EM>`charkka'</EM> written in old orthography). In new orthography,
+primary chillu glyph itself is used in place of secondary.
+<P>
+</DL>
+<P>
+<H2><A NAME="ss6.3">6.3 Rules for Reverse Transliteration</A>
+</H2>
+
+<P>Reverse transliteration has two steps. First, parsing the
+character stream of transliterated Malayalam text into sequence of
+literals. Then generating the glyph sequence corresponding to sequence
+of literals by looking at the context of each literal.
+<P>
+<H3>Parsing Stream of Characters into Literals</H3>
+
+<P>In the model we use, sequence of one or more characters
+represent each Malayalam letter. Hence there arises the problem of
+splitting the character stream representing Malayalam text into
+corresponding literals. For example, if the stream is <EM>`thn'</EM>, we can
+view it as <EM>`t'</EM> + <EM>`hn'</EM> or <EM>`th'</EM> + <EM>`n'</EM> or <EM>`t'</EM>+<EM>`h'</EM>+<EM>`n'</EM> or <EM>`thn'</EM>. We have
+to choose correct one from these different options. The generalised
+rule is as follows:
+<P>
+<P>Let the character stream S be  a<SUB>1</SUB> + a<SUB>2</SUB> + ... + a<SUB>n</SUB> where a<SUB>i</SUB> (1 &lt;= i &lt;= n) is a character.We can consider
+the non-trivial case where S can be split in two ways as S<SUB>1</SUB> = x<SUB>1</SUB> + x<SUB>2</SUB>
++ ... + x<SUB>p</SUB> and S<SUB>2</SUB> = y<SUB>1</SUB> + y<SUB>2</SUB> +...+
+y<SUB>q</SUB> such that x<SUB>1</SUB> != y<SUB>1</SUB> and x<SUB>p</SUB> != y<SUB>q</SUB>
+where x<SUB>i</SUB>(1&lt;=i&lt;=p) and y<SUB>i</SUB>(1&lt;=i&lt;=q) are character sequences
+representing single literals. Without loss of generality S<SUB>1</SUB> will be
+chosen if either of the following conditions are true:
+<P>
+<P>
+<OL>
+<LI> p = 1 and q &gt; 1</LI>
+<LI> p &gt; 1 and q &gt; 1 and x<SUB>p</SUB> and
+y<SUB>q</SUB> are base literals and  | x<SUB>p</SUB> | &gt; | y<SUB>q</SUB> | </LI>
+</OL>
+<P>
+<H3>Reverse Transliteration Function</H3>
+
+<P>Next step is to generate the glyph sequence from the sequence
+of literals obtained. A rule based algorithm is described below.
+<P>
+<P>Let X, X<SUB>1</SUB> and X<SUB>2</SUB> denote conjuncts; z and z<SUB>1</SUB> denote
+literals. G(X) be a function mapping from the given conjunct X to its
+script. G(X) is defined below. There will be a number of clauses such
+that each one has a condition and an expression returning a value. In
+a call to G(X), only the clause which satisfies its gate condition
+will be selected and will return the value of the corresponding
+expression. If two clauses satisfy the condition, the first one will
+be selected lexically.
+<P>
+<OL>
+<LI>  X is null.
+
+G(X) = null
+</LI>
+<LI> X = X<SUB>1</SUB> + X<SUB>2</SUB> where X<SUB>1</SUB> and X<SUB>2</SUB> are non-null conjuncts and first
+literal of X<SUB>2</SUB> has no sign glyph.
+
+G(X) = G(X<SUB>1</SUB>) + G(X<SUB>2</SUB>)
+</LI>
+<LI> X = X<SUB>1</SUB> + z + X<SUB>2</SUB> where X<SUB>2</SUB> is not a single vocal literal (X<SUB>1</SUB> and
+X<SUB>2</SUB> can be null) and z has chillu glyph.
+
+G(X) = G(X<SUB>1</SUB>) + <CODE>&lt;(primary)chillu glyph of z&gt;</CODE> + G(X<SUB>2</SUB>)
+</LI>
+<LI> Last literal of X is not a vocal literal.
+
+G(X) = G(X + <EM>`~'</EM>)
+</LI>
+<LI> X = z + <EM>`a'</EM> where z is a literal or X is a single vocal literal.
+
+G(X) = <CODE>&lt;independent glyph of z&gt;</CODE>
+</LI>
+<LI> X = X<SUB>1</SUB> + z where z is a vocal literal or X = X<SUB>1</SUB> + z + a.
+In any of the above cases, X<SUB>1</SUB> is non-null.
+
+G(X) = <CODE>&lt;left sign glyph of z&gt;</CODE>
++ G(X1 + <EM>`a'</EM>)
++ <CODE>&lt;(primary)right sign glyph of z&gt;</CODE>
+</LI>
+<LI> Special cases (deviations from above clauses)
+
+<UL>
+<LI> If there is a sub-conjunct z+z<SUB>1</SUB> in X such that z=z<SUB>1</SUB>, then
+chillu glyph is not used for z.
+</LI>
+<LI> If there is a sub-conjunct z+z<SUB>1</SUB> in X such that z=z<SUB>1</SUB>, then sign
+glyph is not used for z<SUB>1</SUB> when z is not in {<EM>`g'</EM>, <EM>`D'</EM>, <EM>`S'</EM>, <EM>`s'</EM>}.
+</LI>
+<LI> Let z be in {<EM>`N'</EM>, <EM>`n'</EM>, <EM>`l'</EM>}. For any sub-conjunct z + <EM>`v'</EM> in X,
+z is considered as a literal having no chillu glyph.
+</LI>
+<LI> Let z<SUB>1</SUB> be in {<EM>`y'</EM>, <EM>`r'</EM>, <EM>`rr'</EM>}. For any sub-conjunct z + z<SUB>1</SUB> in
+X, z is considered as a literal having no chillu glyph.
+</LI>
+<LI> Let z<SUB>1</SUB> be in {<EM>`T'</EM>, <EM>`Th'</EM>, <EM>`D'</EM>, <EM>`Dh'</EM>}. For any sub-conjunct <EM>`N'</EM> +
+z<SUB>1</SUB> in X, <EM>`N'</EM> is considered as a literal having no chillu glyph.
+</LI>
+<LI> Let z<SUB>1</SUB> be in {<EM>`t'</EM>, <EM>`th'</EM>, <EM>`d'</EM>, <EM>`dh'</EM>}. For any sub-conjunct <EM>`n'</EM> +
+z1 in X, <EM>`n'</EM> is considered as a literal having no chillu glyph.
+</LI>
+<LI> Let z be in {<EM>`th'</EM>, <EM>`g'</EM>, <EM>`h'</EM>} and z1 be in {<EM>`n'</EM>, <EM>`m'</EM>}. For any
+sub-conjunct z + z<SUB>1</SUB> in X, z<SUB>1</SUB> is considered as a literal having
+no sign glyph.
+</LI>
+<LI> Secondary chillu glyph of <EM>`r/rr'</EM> is used instead of primary, if
+<EM>`r'</EM> is not the last literal of X.
+           </LI>
+<LI> Secondary sign glyph of <EM>`v'</EM> is used instead of primary, if
+literal before <EM>`v'</EM> in X is <EM>`zh'</EM> or <EM>`y'</EM>.</LI>
+</UL>
+</LI>
+</OL>
+<P>
+<H3>Classes of Literals</H3>
+
+<P>From the above algorithm, we may see that many literals have
+exactly same joining property with other literals. So we classify
+literals into different classes such that any two literals in a class
+has same joining property with:
+<P>
+<OL>
+<LI> any literal in any other classes</LI>
+<LI> other literals in the same class</LI>
+<LI> same literal itself</LI>
+</OL>
+<P>
+<P>The classes are as follows:
+<P>
+<OL>
+<LI> <EM>`a'</EM></LI>
+<LI> Base vocal literals other than <EM>`a'</EM></LI>
+<LI> Derived vocal literals</LI>
+<LI> Base consonantal literals (other than those described below)</LI>
+<LI> Derived consonantal literals</LI>
+<LI> <EM>`g'</EM>, <EM>`S'</EM> and <EM>`s'</EM></LI>
+<LI> <EM>`T'</EM>, <EM>`Th'</EM> and <EM>`Dh'</EM></LI>
+<LI> <EM>`D'</EM></LI>
+<LI> <EM>`N'</EM></LI>
+<LI> <EM>`th'</EM></LI>
+<LI> <EM>`thh'</EM>, <EM>`d'</EM> and <EM>`dh'</EM></LI>
+<LI> <EM>`n'</EM></LI>
+<LI> <EM>`m'</EM></LI>
+<LI> <EM>`y'</EM> and <EM>`zh'</EM></LI>
+<LI> <EM>`r'</EM> and <EM>`rr'</EM></LI>
+<LI> <EM>`l'</EM></LI>
+<LI> <EM>`v'</EM></LI>
+<LI> <EM>`L'</EM></LI>
+</OL>
+<P>
+<P>     We know that the set of literals depends on the code for
+information exchange. The concept of classes of literals gives
+flexibility for number of literals to defer between schemes. This
+makes it easy for generalised implementation of the rules since the
+classes alone are fixed.
+<P>
+<H2><A NAME="ss6.4">6.4 Parser Directives</A>
+</H2>
+
+<P>   Following symbols and literals are required in the model being
+considered for transliteration. These additional entries can also be
+viewed as parser directives.
+<P>
+<H3>Zero Width Symbol (ZWS)</H3>
+
+<P>      Semantically ZWS acts as a symbol having zero width. This
+symbol is useful for writing many Arabic words where independent glyph
+of a vocal literal comes in the middle of a word. (eg:<EM>`va_aL~'</EM>. If it
+were written as <EM>`vaaL~'</EM> then it would mean <EM>"sword"</EM>). Similarly another
+context is where we want to avoid the usage of the conjunct glyphs or
+sign glyphs when by default they are the reverse transliteration
+output. Few conflicting example pairs, if this symbol is avoided
+are: [
+<A HREF="#ar">Keralapaniniyam</A>]
+<P>
+<UL>
+<LI> <EM>`kaN_veTTam'</EM>,  <EM>`kaNvan'</EM></LI>
+<LI> <EM>`sam_yOgam'</EM>, <EM>`saamyam'</EM></LI>
+<LI> <EM>`pin_nilaav~'</EM>, <EM>`pinnil'</EM></LI>
+<LI> <EM>`va_aL~'</EM>,    <EM>`vaaL~'</EM></LI>
+<LI> <EM>`sam_rambham'</EM>, <EM>`saamraajyam'</EM></LI>
+</UL>
+<P>
+<H3>Zero Width Literal (ZWL)</H3>
+
+<P>This symbol is used to get the vowel signs alone. The
+semantics of ZWL is same as that of ZWS except that ZWL has the
+properties of a literal where as ZWS has the properties of a symbol.
+<P>
+<H2><A NAME="ss6.5">6.5 Existing Implementation</A>
+</H2>
+
+<P>The implementation of the algorithm by the author is available
+from the 
+<A HREF="http://members.tripod.com/~CibuCJ/varamozhi.html">Varamozhi site</A>. It is
+distributed under [
+<A HREF="#gnu">GNU Public License</A>]. Input for
+the generator consist of the scheme describing the character sequence
+adopted for each literal, the class to which the literal belongs and
+different glyphs of that literal. Output is the C code for generating
+the glyph sequence from the character stream representing Malayalam
+text according to the rules of reverse transliteration described in
+the previous section. The rules are implemented for each class of
+literals.
+<P>
+<P>Salient features of the implementation are:
+<P>
+<UL>
+<LI> Experimental forward transliterator generator</LI>
+<LI> Option for generating API function</LI>
+<LI> Option for generating HTML output</LI>
+<LI> Font conversion and transliteration scheme conversion are supported.</LI>
+<LI> Tested for popular fonts like Manorama, Karthika, Kerala,
+Janaranjani and Veena and transliteration schemes like [
+<A HREF="#ack">A.C.K.</A>, 
+<A HREF="#velthuis">Velthuis</A>, 
+<A HREF="#soji">Achayan</A>, 
+<A HREF="varamozhi-5.html#mozhi">Mozhi</A>].</LI>
+<LI> Can be completely build using public domain case tools.</LI>
+</UL>
+<P>
+<P>Few third party editors like [
+<A HREF="#soji">Madhuri</A>,
+<A HREF="#rajeev">Font Converter</A>] have been successfully
+attempted on the parser generated from Varamozhi.
+<P>
+<H2><A NAME="ss6.6">6.6 Conclusion</A>
+</H2>
+
+<P>Author believes, theory of reverse and forward transliterator
+generators can be developed for all languages having phonetic
+scripts. More over, everything could be put under single generic
+framework. The work being presented through this paper is a very
+specific instance of this, much larger framework and a starting point
+for further research in this area.
+<P>
+<H2><A NAME="ss6.7">6.7 References</A>
+</H2>
+
+<P>
+<OL>
+<LI>  
+<A NAME="ar"></A>       A.R. Rajarajavarma, Keralapaniniyam, Second Ed.</LI>
+<LI>  
+<A NAME="kunjan"></A>   Suranad Kunjan Pillai, Malayalam Lexicon, 1965</LI>
+<LI>  
+<A NAME="gundert"></A>  Gundert, Malayalam-English-Malayalam Dictionary
+</LI>
+<LI>  
+<A NAME="stone"></A> Antony P. Stone, ISO's draft CD15919, 
+<A HREF="http://ourworld.compuserve.com/homepages/stone_catend/trdcd1a.htm">http://ourworld.compuserve.com/homepages/stone_catend/trdcd1a.htm</A></LI>
+<LI>  
+<A NAME="iscii"></A> ISCII (IS 13194:1991) Standard, 
+<A HREF="http://www.cdac.org.in/html/gist/articles.htm">http://www.cdac.org.in/html/gist/articles.htm</A>
+</LI>
+<LI>  
+<A NAME="gnu"></A> GNU, 
+<A HREF="http://www.gnu.org/">http://www.gnu.org/</A>
+</LI>
+<LI>  
+<A NAME="ack"></A> A.C.K,
+<A HREF="http://www.kerala.org/culture/music/mal/scripts/processQuery.cgi?song_name=alphabet">http://www.kerala.org/culture/music/mal/scripts/processQuery.cgi?song_name=alphabet</A>
+</LI>
+<LI>  
+<A NAME="velthuis"></A> Frans Velthuis, Velthuis, 
+<A HREF="http://www.rug.nl/~velthuis/velthuis.html">http://www.rug.nl/~velthuis/velthuis.html</A>
+</LI>
+<LI>  
+<A NAME="soji"></A> Soji Joseph, Madhuri and Achayan, 
+<A HREF="http://members.tripod.com/~k_achayan">http://members.tripod.com/~k_achayan</A>
+</LI>
+<LI> 
+<A NAME="rajeev"></A> Rajeev K. R., Font Converter, 
+<A HREF="http://members.tripod.com/~rajk/mal">http://members.tripod.com/~rajk/mal</A>
+</LI>
+</OL>
+<P>
+<HR>
+<A HREF="varamozhi-7.html">Next</A>
+<A HREF="varamozhi-5.html">Previous</A>
+<A HREF="varamozhi.html#toc6">Contents</A>
+</BODY>
+</HTML>

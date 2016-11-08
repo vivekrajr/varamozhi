@@ -1,0 +1,138 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	Font = MylaiPlain
+	Scheme = mozhi
+	Comment = {,}
+	Carry Comment = No
+	Output HTML = No
+	Allow R dot = No
+
+
+%% Double Quote
+%% Single Quote
+%% Symbols
+
+_ =
+: = @
+H = :
+
+%% letter a
+
+a      = `
+	
+%% Vowels
+
+aa = A = ~ , , a
+i      = ; , , i
+ii = ea = ie = ei = I = : , , I
+u      = u,,<
+uu = U = U,,<> 
+e      = ', e
+E = ae = " , E
+ai     = _ , A
+o	  = o , e , a
+O	  = O , E , a
+au = ou = oq, e, q
+
+
+%% Consonant+Vowel
+
+shri = Shri = !
+Ru =  B 
+Ruu = YB
+su =  chu = ju = shu = C
+suu = chuu = juu = shuu = V
+du = tu = Du = Tu =  D
+duu = tuu = Duu = Tuu =YD 
+di = ti = Di = Ti = F
+dii = tii = Dii = Tii = G
+ku =  gu = cu = K 
+kU = kuu = guu = cuu =  P
+lu =  L
+luu = L\\
+mu =  M
+muu = YM
+nu = {
+nuu = {\\
+\#nu =  N
+\#nuu = N\\
+Lu = Q
+Luu = YQ
+ru = Ru = R
+ruu = Ruu = YR
+thu = thhu = du = dhu = Dhu = T
+thuu = thhuu = duu = dhuu = Dhuu = T\\
+nju = W
+njuu = W\\
+zhu  = Z
+zhuu = YZ
+Nu = }
+Nuu = }\\
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~  = f , , f
+
+%% General Letters
+
+k = c = g = k
+ng = g
+
+ch = j = s = sh = c
+nj = w
+
+p = ph = b = bh = p
+
+
+h = h
+zh = z
+
+t = d =  D = d
+th = dh = Dh = d = t
+N = ]
+n  = [
+\#n = n
+y = y
+l = q
+rr = b 
+r = r
+L = l
+m = m
+v = v
+
+%% Sa, sa, and ga
+%% da vargaakshrangal
+%% letter Da
+%% letter Na
+%% tha vargaakshrangal
+%% letter na
+%% letter ya
+%% letter la
+%% letters La and ma
+%% letters ra rra
+%% letter va
+%% koottaksharangngal 
+
+nth = nd = nTh = nDh = nft
+
+
+
+

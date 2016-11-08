@@ -1,0 +1,1128 @@
+<!doctype linuxdoc system>
+
+<article>
+
+<!-- Title information  -->
+
+<title>Varamozhi
+<author>Cibu C. J., <tt/cibucj@gmail.com/
+<date>Oct. '98
+<abstract>
+A code generator for transliteration of Malayalam text
+between English and Malayalam script.
+</abstract>
+
+<!-- Table of contents -->
+<toc>
+<!-- Begin the document -->
+
+<!-- ============================================================= -->
+<sect>Copyleft
+<!-- ============================================================= -->
+
+<p>
+<bf/Varamozhi:/ <em/A code generator for transliteration of Malayalam text
+between English and Malayalam script./
+
+<p>
+Copyright (C) 1998-2008  Cibu C. J. at <htmlurl name="cibucj@gmail.com"
+url="mailto:cibucj@gmail.com">
+
+<p>
+This program is free software; you can redistribute it and/or modify
+it under the terms of the <htmlurl name="GNU General Public License"
+url="html://www.gnu.org/copyleft/gpl.html"> as published by
+the <htmlurl name="Free Software Foundation"
+url="http://www.gnu.org/fsf/fsf.html">; either version 2 of the
+License, or (at your option) any later version.
+
+<p>
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+<htmlurl name="GNU General Public License"
+url="html://www.gnu.org/copyleft/gpl.html"> for more details.
+
+<p>
+You should have received a copy of the <htmlurl name="GNU General
+Public License" url="html://www.gnu.org/copyleft/gpl.html"> 
+along with this program; if not, write to the  <htmlurl name="Free
+Software Foundation" url="http://www.gnu.org/fsf/fsf.html">,  Inc.,
+675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+<!-- ============================================================= -->
+<sect>Introduction
+<!-- ============================================================= -->
+<p>
+<sect1>What is transliteration ?
+<p>
+It is about changing the script in which a text is written.
+For us the text is in Malayalam. We need to change it from
+English script to Malayalam script such that it is read exactly
+same as in English. Here we are in trouble because English
+has much less number of phonetic entities and its corelation
+between script and phonetics is too loose. So we impose some
+rules like <em/`aa'/ or <em/`zh'/ corresponding to such and such Malayalam
+letters. The collection of such rules is refered as a transliteration
+scheme. The transliteration scheme used in this document is described
+in the chapter <ref id="mozhi" name="Mozhi">. Consider following sample
+Malayalam text written in English using Mozhi scheme:
+
+<tscreen>
+<verb>
+                   thannathilla paranuLLukaaTTuvaan 
+                   onnumE naranupaayameeSwaran 
+                   innu bhaashayathapoorNNamingngahO, 
+                   vannupOm pizhayumarththhaSankayaal. 
+
+                   naLini                kumaaranaaSaan 
+</verb>
+</tscreen>
+
+The above text could be transliterated to Malayalam script as:
+<figure loc="htbp">
+<eps file="sample.ps" height="2.5cm">
+<img src="sample.jpg">
+</figure>
+
+
+<sect1>Why a transliterator generator ?
+<p>
+        There are a lot of transliteration tools available
+today. Most of them are designed only for one particular font and one
+transliteration scheme. But, for an Indian regional language, there
+exists a number of transliteration standards and enumerable fonts
+which do not follow any standard among themselves. Hence the relevance
+of a transliterator generator.
+
+
+<!-- ============================================================= -->
+<sect>Installation
+<!-- ============================================================= -->
+
+<sect1>Distribution structure
+
+
+<p>
+<descrip>
+<tag/Samarpanam.gif/    &nbsp;
+<tag/README/            &nbsp;
+<tag/Makefile/          &nbsp;
+<tag/schm_schm/         Sample mapfiles for conversion from
+                        one scheme to mozhi scheme
+<tag/schm_font/         Sample mapfiles from mozhi scheme to
+                        some of the available fonts
+<tag/malsrc/            Source code for transliteration from
+                        English to Malayalam script
+<tag/lamsrc/            Source code for transliteration from
+                        Malayalam to English script
+<tag/win/               Contains additional .c files required for
+                        compilation in Windows environment.
+<tag/bin/               Will contain executables and .c/.h files
+                        after the build. Its structure will be
+<tag/doc/               Documentation in sgml, html, ascii and ps
+</descrip>
+
+<tscreen><verb>
+bin ----- malbin ------ schm_schm ---- &lt;binary files for schm2schm&gt;
+  |              |
+  |              +----- schm_font ---- &lt;binary files for schm2font&gt;
+  |
+  +------ lambin ------ schm_schm ---- &lt;binary files for schm2schm&gt;
+  |              |
+  |              +----- schm_font ---- &lt;binary files for schm2font&gt;
+  |
+  +------ malapi ------ schm_schm ---- &lt;schemes&gt; -- .[ch] files
+                 |
+                 +----- schm_font ---- &lt;fonts&gt; ---- .[ch] files
+</verb></tscreen>
+
+<sect1>Requirements
+<p>
+<enum>
+<item> Perl 5
+<item> flex
+<item> yacc or bison
+<item> An ANSI C compiler `like' gcc
+</enum>
+
+   Perl is available from <htmlurl url="http://language.perl.com/info/software.html" name="http://language.perl.com/info/software.html">
+   and flex, bison, and gcc from <htmlurl url="http://www.gnu.org/order/ftp.html" name="http://www.gnu.org/order/ftp.html">
+
+
+<sect1>Steps for installation
+
+<p>
+<enum>
+<item> <tt/unzip varamozhi.zip/
+
+<item> change directory to <tt>varamozhi/</>
+
+<item> Sample configuration files are given in <tt>varamozhi/schm_schm/</>
+   and <tt>varamozhi/schm_font/</>. The files in the first directory
+   map between two transliteration schemes and the second one
+   between a font and a transliteration scheme. So these
+   configuration files are called mapfiles. They can be used as
+   they are or modified for different scheme and font. Syntax and
+   semantics of the entries in a <em/mapfile/ are explained in
+   a section below.
+
+<item> Following variables may be edited in <tt>varamozhi/Makefile</>.
+
+   <itemize>
+   <item> <tt/SCHMLIST/ representing the mapfiles to be used; typically
+      for scheme to scheme conversion.
+   <item> <tt/SCHMDIR/ representing the directory where mapfiles
+      specified by <tt/&dollar;SCHMLIST/ are found.
+   <item> <tt/FONTLIST/ representing the mapfiles to be used; typically
+      for scheme to font conversion.
+   <item> <tt/FONTDIR/ representing the directory where mapfiles
+      specified by <tt/&dollar;FONTLIST/ are found.
+   <item> <tt/PARSER/ will specify the parser generator to be used.
+      It should be <em/yacc/ like. One choice other than yacc
+      would be <em/bison/.
+   <item> <tt/BINDIR/ is the directory where binaries will be created.
+   </itemize>
+
+   <em/Note:/ The mapfiles given has .map extension. But this
+   extension should not be specified in <tt/&dollar;SCHMLIST/ or <tt/&dollar;FONTLIST/.
+
+<item> <bf><tt>make</></>
+
+   This will create all the executables for scheme to scheme
+   and scheme to font conversion in <tt>varamozhi/bin/malbin/*</>.
+   Similarly executables doing the reverse in
+   <tt>varamozhi/bin/lambin/*</>.
+
+   <itemize>
+   <item> For generating executables for
+   forward conversion (English to Malayalam) only, do
+   <tt/make mal/.
+   <item> For reverse conversion, do <tt/make lam/.
+   <item> <tt/make api/ will generate the API functions for forward
+   conversion.
+   This creates all the <tt/.c/ and <tt/.h/ files; but will not make
+   the executable. All the required <tt/.c/ and <tt/.h/ files are copied
+   to <tt>varamozhi/bin</> directory.
+  
+   </itemize>
+
+<item> <bf><tt>make clean</></> (optional)
+</enum>
+
+
+<sect1>Installing on HP
+
+<p>
+ May need  <tt/-Xa1000/ option for flex.
+
+
+<sect1>Installing on NT/Windows
+
+<p>
+You need to have a cross platform CASE tool which will
+give you flex and yacc. Two such case tools are:
+
+<itemize>
+<item> <htmlurl url="ftp://ftp.cygnus.com/pub/gnu-win32/latest/" name="ftp://ftp.cygnus.com/pub/gnu-win32/latest/"> - From Cygnus Solutions
+<item> <htmlurl url="http://www.research.att.com/sw/tools/uwin/" name="http://www.research.att.com/sw/tools/uwin/"> - From <em/AT&amp;T/ (this requires a native C compiler)
+
+</itemize>
+<p>
+If you are using these tools, you may need to edit
+make variable like <tt/&dollar;PARSER/ and <tt/&dollar;SCANNER/ accordingly.
+
+<p>
+If you could reach up to the <tt/.c/ and <tt/.h/ files in a Unix
+machine and just want to make the <tt/.exe/ in NT/windows,
+take <tt>.c/.h</> files from <tt>varamozhi/bin/malapi/&lt;schm_..&gt;/&lt;font_or_scheme&gt;/</>
+directory and <tt/alloca.c/ and <tt/getopt.c/ from <tt>varamozhi/win/</>,
+put them in MS machine and do the compilation as:
+
+<tscreen>
+<verb>
+    cl /Femal.exe y.tab.c lex.yy.c alloca.c getopt.c
+</verb>
+</tscreen>
+
+<!-- ============================================================= -->
+<sect1>Configuring for a particular font and scheme
+<!-- ============================================================= -->
+
+
+<p>
+The <tt/.map/ file maps between the transliteration scheme and
+the font. <tt>varamozhi/schm_font</> and <tt>varamozhi/schm_schm</>
+has few sample mapfiles. In this section we look at the syntax of mapfile
+entries.
+A mapfile has following sections:
+<enum>
+<item>  General
+<item>  Double Quote Symbol
+<item>  Single Quote Symbol
+<item>  Other Symbols (<em/`chihnangngaL'/)
+<item>  letter - <em/`a'/ (the first vowel)
+<item>  Rest of the vowels (<em/`svarangngaL'/)
+<item>  Consonant+vowel conjuncts (<em/`vyanjjanam+svaram'/)
+<item>  <em/`samvr^thOkaaram'/ (popularly known as <em/`chandrakkala'/)
+<item>  General Consonants
+<item>  <em/`ga, Sa'/ and <em/`sa'/
+<item> <em/`Ta-vargam'/
+<item> Letter  - <em/`Da'/
+<item> Letter  - <em/`Na'/
+<item> <em/`tha-vargam'/
+<item> Letter  - <em/`na'/
+<item> Letter  - <em/`ya'/
+<item> Letter  - <em/`la'/
+<item> Letters - <em/`La'/ and <em/`ma'/
+<item> Letters - <em/`ra'/ and <em/`Ra'/
+<item> Letter  - <em/`va'/
+<item> Conjunct Ligatures (<em/`kooTTaksharangngaL'/)
+</enum>
+
+<sect2> General section
+
+<p>
+This section provides the information which is not the
+part of transliteration scheme definition.
+
+<itemize>
+<item> Before starting all sections font name should be provided
+   as <tt/Font = &lt;font_name&gt;/. This font name will be used
+   in the HTML font tag when output in in HTML.
+
+<item> The characters used to comment out the text from processing
+   is defined as <tt/Comment = &lt;Left_comment_tag&gt;, &lt;Right_comment_tag&gt;/.
+
+<item> Transliteration directive <tt>Carry Comment = Yes/No</>. <tt>No</> is
+   the default. See detailed discussion on usage of <tt/-c/ flag of <tt/mal/.
+   
+<item> Transliteration directive <tt>Output HTML = Yes/No</>. <tt/No/ is
+   the default. See detailed discussion on usage of <tt/-h/ flag of <tt/mal/.
+   
+<item> Transliteration directive <tt>Allow R Dot = Yes/No</>. <tt/No/ is
+   the default. See detailed discussion on usage of <tt/-r/ flag of <tt/mal/.
+</itemize>
+
+<sect2> Remaining sections
+
+<p>
+Please read section <ref id="def" name="definitions">.
+
+<p>
+All other sections start with the special tag `&percnt;&percnt;'. All
+lines before next `&percnt;&percnt;' or end of file will be in that section.
+That is nth section will start with <f>n<sup>th</></> `&percnt;&percnt;' tag.
+Each line in a section will contain a number of fields separated
+by `='. Except the last, all fields will represent same
+letter or symbol. The program <tt/lam/ will use only the
+first string while transliteration. Font information is
+encoded in the last field. This field will have at the
+most four subfields separated by commas. These subfields
+are explained below.
+
+<p>
+The first subfield will represent the independent glyph,
+the second and third subfields will represent right and
+left sign glyphs respectively.  The last one will represent
+the chillu glyph. Each subfield should
+represent the corresponding font key stroke. If that key
+stoke is not a normal typewriter character (an <tt/Alt+/ key
+combination) you need to write its decimal ASCII number
+quoted with a slash (eg : <tt/\147/). Now if more than two key
+strokes represent same glyph, then write all of them as
+<tt/|/ (pipe symbol) separated (eg: <tt/\147|\148/). The program <tt/mal/ will
+use only the first one. That is <tt/\147/ from previous example.
+
+<sect1>Characters having special meanings
+
+<p>
+<itemize>
+<item>  <tt/, =/ and <tt/|/ are used as field separators.
+<item>  The blank lines and blanks are ignored.
+<item>  <tt/&num;/ is used for commenting.
+<item>  Following characters should be quoted using
+   backslash: <tt/&num; , \ = |/
+<item>  <tt/\b/ represents single space.
+<item>  <tt/\n/ represents newline character.
+</itemize>
+
+<p>
+All symbols which are not specified in the `mapfile' will
+be copied as such and will be considered as Malayalam
+characters when font tags are attached in the HTML output.
+
+
+
+<!-- ============================================================= -->
+<sect>Usage
+<!-- ============================================================= -->
+
+
+<sect1>Usage of <tt/mal/
+
+
+<p>
+This program converts text in English script to Malayalam script.
+Malayalam script will be outputted as font keystrokes. Assumes all
+the kerning or positioning information is encoded in the font itself.
+
+<sect2>Synopsis
+
+<p>
+<tscreen>
+<verb>
+      mal [-c] [-h ] [-r] [-o output_file] [input_files...]
+</verb>
+</tscreen>
+
+<sect2>Options
+
+<p>
+<descrip>
+<tag/<tt>-c</tt>/  If specified the commented portion should be retained
+          along with the characters for commenting. Default action
+          is to remove commented characters and do the required
+          processing to the comment.
+<p>
+          This is required when multiple levels of processing is
+          required and the commented text should pass intact through
+          all but last one and comment processing is done only in the
+          last phase. Example could be coupling of scheme to scheme
+          conversion with scheme to font conversion
+
+<tag/<tt>-h</>/   Generates primitive HTML output. Only the font information
+          is coded in the output. If not specified does plain
+          transliteration.  All uncommented characters are considered
+          as Malayalam characters and will be wrapped together in
+          HTML font tags.
+
+<tag/<tt>-r</>/   In old Malayalam texts, the chillu form of <em/`R'/ is usually
+          put as a dot above the succeeding consonant, if exists.
+          If the flag <tt/-r/ is set, where ever possible chillu <em/`R'/ will
+          be put in dot form. Default action is not to use this dot
+          for chillu <em/`R'/.
+     
+<tag/<tt>-o output_file</>/
+          Place output in the file <tt/output_file/. If this flag is
+          not specified, output is taken to standard output.
+
+<tag/<tt>input_files</>/
+          If specified, input is taken from <tt/input_files/ parameters,
+          in the order from left to right. (There can be more than one
+          input file parameter.) If no input file is specified then
+          input is received from the standard input.
+</descrip>
+<p>
+     Defaults values of <tt/-c/, <tt/-h/ and <tt/-r/ can be changed by configuring the
+     mapfile.
+
+<!-- ============================================================= -->
+<sect1> Usage of <tt/lam/
+<!-- ============================================================= -->
+
+<p>      
+Converts text in Malayalam script (font keystrokes)
+to English script.  <tt/lam/ take input from standard input
+and output to standard output.
+
+<!-- ============================================================= -->
+<sect1> Font conversion
+<!-- ============================================================= -->
+
+<p>      
+I will describe this with an example. Suppose you want to covert
+a document in Karthika font to Manorama font. Then you need two
+mapfiles - for each font, with same transliteration scheme.
+Assume we already have karthika.ack and manorama.ack.
+Create <tt/lam/ with setting <tt/MAPFILE/ variable in Makefile
+as <tt/karthika.map/. Similarly create <tt/mal/ with setting <tt/MAPFILE/
+variable as <tt/manorama.map/. Now the following command will complete
+the conversion:
+
+<tscreen><verb>
+&dollar; lam &lt; doc_in_karthika | mal &gt; doc_in_manorama
+</verb></tscreen>
+
+<!-- ============================================================= -->
+<sect1>Scheme conversion
+<!-- ============================================================= -->
+
+<p>
+Scheme conversion can adopt a strategy described in Font Conversion
+section. But there are easier ways for that. It would be interesting
+to look at the sample scheme conversion mapfiles given in the
+varamozhi/schemes directory.  Suppose we want to convert from scheme A
+to scheme B. Then we write all the characters defined in the scheme A
+as <em/SYMBOLS/ having translation to corresponding ones in scheme B.
+Then compile as we do for normal scheme to font conversion.
+
+
+<!-- ============================================================= -->
+<sect1>Application programming interface
+<!-- ============================================================= -->
+
+<p>
+Varamozhi has the facility for generating an API function for
+English to Malayalam transliteration.
+
+<sect2>Synopsis
+
+<p>
+<tscreen><verb>
+
+extern int   carrycomment;
+extern int   outputhtml;
+extern int   allowRdot;
+extern char* mal_out_text;
+
+char* mal_parse(const char* mal_in_text);
+
+</verb></tscreen>
+
+<sect2>Description
+
+<p>
+<tt/mal_parse()/ takes character string as input parameter.
+After conversion the output string is placed in mal_out_text
+and starting address is returned by <tt/mal_parse()/. While
+compiling this function along with third party software,
+macro <tt/EXECUTABLE/ should be undefined. This macro decides
+whether to make the executable or function from the code.
+
+<p>
+Setting the external variables <tt/carrycomment, outputhtml/
+and <tt/allowRdot/ will set the functionalities specified as
+<tt/-c/ <tt/-h/ and <tt/-r/ in the usage of <tt/mal/ true. On resetting,
+the default actions are assumed.
+
+<!-- ============================================================= -->
+<sect>Mozhi scheme<label id="mozhi">
+<!-- ============================================================= -->
+     
+<sect1>Vowels
+<p>
+<tscreen><verb>
+     a      aa      i     ii     u    uu
+     r^     r^^     l^    l^^
+     e      E       ai    o      O    au
+</verb></tscreen>
+
+<sect1>Consonants
+<p>
+<tscreen><verb>
+     ka     kha     ga    gha    nga
+     cha    chha    ja    jha    nja
+     Ta     Tha     Da    Dha    Na
+     tha    thha    da    dha    na
+     pa     pha     ba    bha    ma
+     
+     ya     ra      la    va
+     Sa     sha     sa    ha
+     La     zha     rra   ta
+</verb></tscreen>
+
+<sect1>Symbols
+
+<p>
+<tscreen><verb>
+     visargam                     H
+     praSLEsham (avagraha)        &dollar;
+     samvr^thOkaaram              &tilde;
+     (viraama or chandrakkala)
+     &lt;date&gt;th                     n^ (eg: 17-n^)
+     
+     zero-width-symbol            _
+     zero-width-character         @
+
+     dollar                       \&dollar;
+     tilde                        \&tilde;
+     at                           \@
+     underscore                   \_
+     backslash                    \\
+     caret                        \^
+</verb></tscreen>
+     
+<p>  Symbols undefined; but found in old Malayalam texts:
+     1/2, 3/4
+
+<sect1>Equivalences
+
+<p>
+<em/Rule:/ For a Capitalised sequence (say <f/X/), if there exists
+       a double ligature form (ie, <f/xx/) for its the corresponding lower-case
+       sequence (ie, <f/x/), then <f/X/ is considered to be equivalent
+       to that double (ie, <f/X = xx/). Otherwise capitalised sequence
+       is equivalent to the lower-case sequence. (ie, <f/X = x/).
+If a meaning is already assigned to a capitalised sequence, then
+above rule is not applied. eg: Since <em/`H'/ is visargam symbol; <em/`H'/ is not
+equivalent to <em/`h'/. Similarly, <em/`D'/ is not equivalent to <em/`dd'/.
+
+<tscreen><verb>
+
+          H    = \:
+
+          aa   = A
+          ii   = ie    = ei = ee = ea = I
+          uu   = oo    = U
+          r^   = rr^   = R^
+          r^^  = rr^^  = R^^
+          l^   = L^
+          l^^  = L^^
+          au   = ou
+
+          k    = q     = c
+          kk   = K     = qq  = Q  = cc = C
+          kh   = KH
+          gg   = G
+          gh   = GH
+          ngng = NG
+
+          chch = CH
+          chh  = CHH
+          jj   = J
+          jh   = JH
+          njnj = NJ
+
+          thth = TH
+          dh   = DH
+
+          pp   = P
+          ph   = PH    = f  = F
+          bb   = B
+          bh   = BH
+          mm   = M
+          
+          yy   = Y
+          v    = w
+          vv   = V     = W
+          sh   = SH
+          s    = z
+          ss   = Z
+          zh   = ZH
+          t    = tt    = RR
+
+          rr   = R
+          ksh  = x     = X
+</verb></tscreen>
+
+<sect1>Dirty but useful equivalences
+
+<p>
+<tscreen><verb>
+          njnj = nnj
+          njch = nch
+          NT   = Nd    = Nt
+          ngng = nng
+          ngk  = nk
+          kk   = ck
+          thth = tth
+          chch = cch
+</verb></tscreen>
+
+
+<!-- ============================================================= -->
+<sect>Design
+<!-- ============================================================= -->
+
+
+<p>
+        In the model  we use, a sequence of one or more
+characters  represent each Malayalam letter. In the following
+sections, with the help of few definitions, we will see algorithms for
+generating Malayalam script from the character stream representing
+Malayalam text. Its implementation is mentioned in the last section.
+
+<p>
+        In this section, Malayalam text will appear within single
+quotes(') written using Mozhi scheme described in chapter 
+ <ref id="mozhi" name="Mozhi 7 bit transliteration scheme">.
+ Plus(+) is used as the string concatenation operator and
+forward slash (/) indicates either the string before or the string
+after the forward slash or both are under consideration.
+
+
+<sect1> Deviations from Malayalam scripting conventions
+
+<p>
+        We assume following deviations from the traditional Malayalam
+scripting conventions. This is for the ease of generalisation of
+transliteration properties.
+
+<p>
+<itemize>
+
+<item> Consonant letters are considered without the default <em/`a'/ vowel
+   sound along with it.
+
+<item> <em/`anuswaaram'/(anuswara) is considered to be the <em/`chillu'/ (pure) form
+   of <em/`ma'/.
+
+<item> <em/`samvr^thOkaaram'/(halant or virama) has got two functions in
+   Malayalam scripting.
+
+   <itemize>
+   <item> As a joiner to indicate the conjunct of two consonants.
+   <item> As the half-<em/`u'/ vowel. It is used only at the end of a word
+       (ex: <em/`ath&tilde;'/) and is applicable in new orthography only. In old
+       orthography this usage is found north Kerala. In south Kerala,
+       half-<em/`u'/ is written as the combination of sign for <em/`u'/ and the
+       halant sign. &lsqb;<ref id=ar name="Keralapaniniyam">,
+       <ref id=kunjan name="Malayalam Lexicon">&rsqb;
+   </itemize>
+
+   We consider the semantics of halant as the first one only. For that, it is
+   considered as a vowel without any sound.
+
+<item>  <em/`visargam'/(visarga) and <em/`praSLEsham'/(avagraha) are symbols.
+</itemize>
+
+<sect1> Definitions <label id=def>
+<p>
+<descrip>
+<tag/Letter:/ Letters are the basic phonetic building blocks of a language.
+        Along with the sound it has one or more graphical forms also.
+
+<tag/Symbol:/ In contrast to a letter, a <em/symbol/ does not have its own
+        phonetic identity (ex: coma, colon or visarga).
+
+<tag/Literal:/ Literal is a sequence of letters which has a single
+        fused graphical form when written either independently or
+        combined with any other letters (ex: <em/`n'/, <em/`nn'/ and
+        <em/`yu'/). Usually it includes all letters and all conjunct
+        forms consisting of two or more letters. Literals representing
+        the letters are called base literals and those representing
+        the conjunct forms are called derived literals. Size of a
+        literal is the number of characters being used to represent
+        that literal in the given transliteration scheme. <f> |x| </f> operator
+        denote the size of the literal <f>x</f> with respect to that
+        scheme. A literal can also be classified as vocal or
+        consonantal depending on whether it can be pronounced
+        independently or not.
+
+        Concept of literals is closely linked to fonts or some code
+        for information interchange in general. Whether a character
+        sequence has a single fused graphical form or not, can be
+        decided only by analysing that code.
+
+<tag/Glyph:/ graphical form of a literal or symbol.
+
+<tag/Text:/ It refers to the sequence of characters representing
+        transliterated Malayalam. It can also be interpreted as a
+        sequence of literals and symbols represented by that character
+        stream.
+
+<tag/Script:/ sequence of glyphs denoting a text.
+
+<tag/Transliteration:/ the representation of the glyphs of a source script
+        by the glyphs of a target script. In our description, source
+        script is Malayalam and target script is English.
+
+<tag/Reverse transliteration:/ the process whereby the glyphs of a target
+        script are transliterated into those of the source script.
+
+<tag/Conjunct:/ a sequence of literals such that all the literals other than
+        the last are consonantal literals. Last literal can be either
+        vocal or consonantal. (eg: In the conjunct <em/`sva'/, <em/`s'/ is the
+        first literal, <em/`v'/ is the second and <em/`a'/ is the third. More
+        over, <em/`svar'/ is not a conjunct because the vocal literal <em/`a'/
+        does not come as the last literal.)
+
+<tag/Context:/ Context of a literal refers to its neighbourhood in a text.
+        There are two different contexts for a literal. One is the
+        lexical context and other is the phonetical context. By
+        default context means phonetical context. A literal can have
+        null neighbourhood also. That is, when no other sound is
+        pronounced along with it.
+</descrip>
+<p>
+A detailed list of related definitions can be found in &lsqb;<ref id=stone
+name="Antony P. Stone's transliteration page">&rsqb;.
+
+<sect2>Different glyphs of a literal
+
+<p>
+        A literal assumes different glyphs depending on its
+context. They are classified as following:
+
+<descrip>
+<tag/Independent glyph/
+
+   A vocal literal assumes independent glyph in null context. (eg:
+   graphical form to represent a single <em/`o'/ sound). Any consonant
+   literal <f/X/ assumes independent glyph in the conjunct <f/X + /<em/`a'/. (eg:
+   graphical form of <em/`ka'/)
+
+<tag/Sign glyph or Partial glyph/
+
+   Graphical form of the literal when it appears last in a two literal
+   conjunct. (eg: graphical form of <em/`o'/ in <em/`ko'/; form of <em/`ya'/ in <em/`kya'/
+   and form of <em/`na'/ in <em/`sna'/). It can have two parts which come on
+   left and right of the independent glyph of the first literal.  They
+   are called "left sign glyph" and "right sign glyph"
+   respectively. (eg: in <em/`ko'/, <em/`o'/ has both sign glyphs. In <em/`kya'/, <em/`y'/
+   has only right sign glyph and in <em/`kra'/, <em/`r'/ has only left sign
+   glyph). More over, all the vocal literals except <em/`a'/ have sign
+   glyphs.
+
+<p>
+   The literal <em/`v'/ has two right sign glyphs. The sign glyph which
+   appears when first literal is not <em/`y'/ or <em/`zh'/ is called primary
+   right sign glyph of <em/`v'/. The one which appears with <em/`y'/ and <em/`zh'/ is
+   called secondary right sign glyph of <em/`v'/.  For example, see the
+   words <em/`svapnam'/, <em/`vaazhv&tilde;'/ and <em/`meyvazhakkam'/.
+
+<tag/Chillu glyph/
+
+   Only <em/`N'/, <em/`n'/, <em/`m'/, <em/`r'/, <em/`l'/, <em/`L'/ and <em/`rr'/ have single fused glyph
+   in null context. Those glyphs are called chillu glyphs. (In old
+   orthography <em/`k'/ and <em/`y'/ also had chillu glyphs. Described in <ref
+   id=gundert name="Gundert's Dictionary">.)
+
+<p>
+   The chillu glyphs of <em/`r'/ and <em/`rr'/ are same. There are two different
+   chillu glyphs for <em>`r/rr'</>. The graphical form <em/`r'/ assumes when it is
+   the last literal of a word, is called primary chillu glyph of
+   <em>`r/rr'</> (eg: graphical form of <em/`r'/ in <em/`avar'/). The chillu glyph of
+   <em/`r'/ as a dot over the next consonant in the word is called
+   secondary chillu glyph of <em>`r/rr'</> (eg: graphical form of <em/`r'/ in the
+   word <em/`charkka'/ written in old orthography). In new orthography,
+   primary chillu glyph itself is used in place of secondary.
+
+</descrip>
+
+<!-- ============================================================= -->
+<sect1>Rules for reverse transliteration
+<!-- ============================================================= -->
+
+<p>
+        Reverse transliteration has two steps. First, parsing the
+character stream of transliterated Malayalam text into sequence of
+literals. Then generating the glyph sequence corresponding to sequence
+of literals by looking at the context of each literal.
+
+<sect2> Parsing stream of characters into literals
+
+<p>
+        In the model we use, sequence of one or more characters
+represent each Malayalam letter. Hence there arises the problem of
+splitting the character stream representing Malayalam text into
+corresponding literals. For example, if the stream is <em/`thn'/, we can
+view it as <em/`t'/ + <em/`hn'/ or <em/`th'/ + <em/`n'/ or <em/`t'/+<em/`h'/+<em/`n'/ or <em/`thn'/. We have
+to choose correct one from these different options. The generalised
+rule is as follows:
+
+<p>
+        Let the character stream <f/S/ be <f> a<inf/1/ + a<inf/2/ + ... + a<inf/n/
+</f> where <f>a<inf/i/ (1 &lt;= i &lt;= n)</f> is a character.We can consider
+the non-trivial case where S can be split in two ways as <f>S<inf/1/ = x<inf/1/ + x<inf/2/
++ ... + x<inf/p/</f> and <f>S<inf/2/ = y<inf/1/ + y<inf/2/ +...+
+y<inf/q/</f> such that <f>x<inf/1/ != y<inf/1/</f> and <f>x<inf/p/ != y<inf/q/</f>
+where <f>x<inf/i/(1&lt;=i&lt;=p)</f> and <f>y<inf/i/(1&lt;=i&lt;=q)</f> are character sequences
+representing single literals. Without loss of generality <f>S<inf/1/</> will be
+chosen if either of the following conditions are true:
+
+
+<enum>
+<item> <f/p = 1/ and <f/q &gt; 1/
+<item> <f/p &gt; 1/ and <f/q &gt; 1/ and <f/x<inf/p// and
+<f/y<inf/q// are base literals and <f/ | x<inf/p/ | &gt; | y<inf/q/ | /
+</enum>
+
+<sect2>Reverse transliteration function
+
+<p>
+        Next step is to generate the glyph sequence from the sequence
+of literals obtained. A rule based algorithm is described below.
+
+<p>
+        Let <f/X, X<inf/1// and <f/X<inf/2// denote conjuncts; <f/z/ and <f/z<inf/1// denote
+literals. <f/G(X)/ be a function mapping from the given conjunct <f/X/ to its
+script. <f/G(X)/ is defined below. There will be a number of clauses such
+that each one has a condition and an expression returning a value. In
+a call to <f/G(X)/, only the clause which satisfies its gate condition
+will be selected and will return the value of the corresponding
+expression. If two clauses satisfy the condition, the first one will
+be selected lexically.
+
+<enum>
+<item>  <f/X/ is null.
+
+    <f/G(X) =/ null
+
+<item> <f/X = X<inf/1/ + X<inf/2// where <f/X<inf/1// and <f/X<inf/2// are non-null conjuncts and first
+    literal of <f/X<inf/2// has no sign glyph.
+
+    <f/G(X) = G(X<inf/1/) + G(X<inf/2/)/
+
+<item> <f/X = X<inf/1/ + z + X<inf/2// where <f/X<inf/2// is not a single vocal literal (<f/X<inf/1// and
+    <f/X<inf/2// can be null) and <f/z/ has chillu glyph.
+
+    <f/G(X) = G(X<inf/1/) +/ <tt/&lt;(primary)chillu glyph of <f/z/&gt;/ <f/+ G(X<inf/2/)/
+
+<item> Last literal of X is not a vocal literal.
+
+    <f/G(X) = G(X + /<em/`&tilde;'/<f/)/
+
+<item> <f/X = z + /<em/`a'/ where <f/z/ is a literal or <f/X/ is a single vocal literal.
+
+    <f/G(X) = /<tt/&lt;independent glyph of <f/z/&gt;/
+
+<item> <f/X = X<inf/1/ + z/ where <f/z/ is a vocal literal or <f/X = X<inf/1/ + z + a/.
+    In any of the above cases, <f/X<inf/1// is non-null.
+
+    <f/G(X) = /<tt/&lt;left sign glyph of <f/z/&gt;/
+           <f/+ G(X1 + /<em/`a'/<f/)
+           + /<tt/&lt;(primary)right sign glyph of <f/z/&gt;/
+
+<item> Special cases (deviations from above clauses)
+
+<itemize>
+
+     <item> If there is a sub-conjunct <f/z+z<inf/1// in <f/X/ such that <f/z=z<inf/1//, then
+       chillu glyph is not used for <f/z/.
+
+       <item> If there is a sub-conjunct <f/z+z<inf/1// in <f/X/ such that <f/z=z<inf/1//, then sign
+       glyph is not used for <f/z<inf/1// when <f/z/ is not in {<em/`g'/, <em/`D'/, <em/`S'/, <em/`s'/}.
+
+       <item> Let <f/z/ be in {<em/`N'/, <em/`n'/, <em/`l'/}. For any sub-conjunct <f/z/ + <em/`v'/ in <f/X/,
+       <f/z/ is considered as a literal having no chillu glyph.
+
+       <item> Let <f/z<inf/1// be in {<em/`y'/, <em/`r'/, <em/`rr'/}. For any sub-conjunct <f/z + z<inf/1// in
+       <f/X, z/ is considered as a literal having no chillu glyph.
+
+       <item> Let <f/z<inf/1// be in {<em/`T'/, <em/`Th'/, <em/`D'/, <em/`Dh'/}. For any sub-conjunct <em/`N'/ +
+       <f/z<inf/1// in <f/X/, <em/`N'/ is considered as a literal having no chillu glyph.
+
+       <item> Let <f/z<inf/1// be in {<em/`t'/, <em/`th'/, <em/`d'/, <em/`dh'/}. For any sub-conjunct <em/`n'/ +
+       z1 in X, <em/`n'/ is considered as a literal having no chillu glyph.
+
+       <item> Let <f/z/ be in {<em/`th'/, <em/`g'/, <em/`h'/} and <f/z1/ be in {<em/`n'/, <em/`m'/}. For any
+       sub-conjunct <f/z + z<inf/1// in <f/X/, <f/z<inf/1// is considered as a literal having
+       no sign glyph.
+
+       <item> Secondary chillu glyph of <em>`r/rr'</> is used instead of primary, if
+       <em/`r'/ is not the last literal of <f/X/.
+           
+      <item> Secondary sign glyph of <em/`v'/ is used instead of primary, if
+       literal before <em/`v'/ in <f/X/ is <em/`zh'/ or <em/`y'/.
+       </itemize>
+</enum>
+
+<sect2> Classes of literals
+
+<p>
+        From the above algorithm, we may see that many literals have
+exactly same joining property with other literals. So we classify
+literals into different classes such that any two literals in a class
+has same joining property with:
+
+<enum>
+<item> any literal in any other classes
+<item> other literals in the same class
+<item> same literal itself
+</enum>
+
+<p>
+The classes are as follows:
+
+<enum>
+<item> <em/`a'/
+<item> Base vocal literals other than <em/`a'/
+<item> Derived vocal literals
+<item> Base consonantal literals (other than those described below)
+<item> Derived consonantal literals
+<item> <em/`g'/, <em/`S'/ and <em/`s'/
+<item> <em/`T'/, <em/`Th'/ and <em/`Dh'/
+<item> <em/`D'/
+<item> <em/`N'/
+<item> <em/`th'/
+<item> <em/`thh'/, <em/`d'/ and <em/`dh'/
+<item> <em/`n'/
+<item> <em/`m'/
+<item> <em/`y'/ and <em/`zh'/
+<item> <em/`r'/ and <em/`rr'/
+<item> <em/`l'/
+<item> <em/`v'/
+<item> <em/`L'/
+</enum>
+
+<p>     We know that the set of literals depends on the code for
+information exchange. The concept of classes of literals gives
+flexibility for number of literals to defer between schemes. This
+makes it easy for generalised implementation of the rules since the
+classes alone are fixed.
+
+<!-- ============================================================= -->
+<sect1>Parser directives
+<!-- ============================================================= -->
+
+<p>   Following symbols and literals are required in the model being
+considered for transliteration. These additional entries can also be
+viewed as parser directives.
+
+<sect2>
+Zero Width Symbol (ZWS)
+
+<p>      Semantically ZWS acts as a symbol having zero width. This
+symbol is useful for writing many Arabic words where independent glyph
+of a vocal literal comes in the middle of a word. (eg:<em/`va_aL&tilde;'/. If it
+were written as <em/`vaaL&tilde;'/ then it would mean <em/"sword"/). Similarly another
+context is where we want to avoid the usage of the conjunct glyphs or
+sign glyphs when by default they are the reverse transliteration
+output. Few conflicting example pairs, if this symbol is avoided
+are: &lsqb;<ref id=ar name="Keralapaniniyam">&rsqb;
+
+<itemize>
+<item> <em/`kaN_veTTam'/,  <em/`kaNvan'/
+<item> <em/`sam_yOgam'/, <em/`saamyam'/
+<item> <em/`pin_nilaav&tilde;'/, <em/`pinnil'/
+<item> <em/`va_aL&tilde;'/,    <em/`vaaL&tilde;'/
+<item> <em/`sam_rambham'/, <em/`saamraajyam'/
+</itemize>
+
+<sect2>Zero Width Literal (ZWL)
+
+<p>
+        This symbol is used to get the vowel signs alone. The
+semantics of ZWL is same as that of ZWS except that ZWL has the
+properties of a literal where as ZWS has the properties of a symbol.
+
+
+<!-- ============================================================= -->
+<sect1>References
+<!-- ============================================================= -->
+
+<p>
+<enum>
+
+<item>  <label id=ar>      A.R. Rajarajavarma, Keralapaniniyam, Second Ed.
+<item>  <label id=kunjan>  Suranad Kunjan Pillai, Malayalam Lexicon, 1965
+<item>  <label id=gundert> Gundert, Malayalam-English-Malayalam Dictionary
+
+<item>  <label id=stone>Antony P. Stone, ISO's draft CD15919, 
+        <htmlurl name="http://ourworld.compuserve.com/homepages/stone_catend/trdcd1a.htm"
+         url="http://ourworld.compuserve.com/homepages/stone_catend/trdcd1a.htm">
+</enum>
+
+<!-- ============================================================= -->
+<sect>Related URLs
+<!-- ============================================================= -->
+
+<sect1>Fonts
+
+
+<p>
+<descrip>
+
+<tag/Manorama/ <htmlurl url="http://www.malayalamanorama.com/fonts/getfont.htm" name="http://www.malayalamanorama.com/fonts/getfont.htm">
+<tag/Deepa/ <htmlurl url="http://paul.rutgers.edu/&tilde;gsuresh/varamozhi/deepa.html" name="http://paul.rutgers.edu/&tilde;gsuresh/varamozhi/deepa.html">
+<tag/Karthika/ <htmlurl url="http://www.deepika.com/downloadfont.asp" name="http://www.deepika.com/downloadfont.asp">
+<tag/Veena/ <htmlurl url="http://www.kalakaumudi.net/font.html" name="http://www.kalakaumudi.net/font.html">
+<tag/Vidya/ <htmlurl url="http://www.mathrubhumi.com/messg.htm" name="http://www.mathrubhumi.com/messg.htm">
+<tag/Tulasi/ <htmlurl url="http://www.desabhimani.com" name="http://www.desabhimani.com">
+<tag/KERALA/ <htmlurl url="http://sellnbuy.com/public/kerala.zip" name="http://sellnbuy.com/public/kerala.zip">
+<tag/KERALAX/ <htmlurl url="http://www.keralax.com/font/font.htm" name="http://www.keralax.com/font/font.htm">
+<tag/Kaveri/ <htmlurl url="http://www.indusdesh.com/malayanma/weekly/week7/download.htm" name="http://www.indusdesh.com/malayanma/weekly/week7/download.htm">
+<tag/Gayathri/ <htmlurl url="http://www.kerala.org/fonts" name="http://www.kerala.org/fonts">   
+<tag/Janaranjani/ <htmlurl url="http://www.kerala.org/fonts" name="http://www.kerala.org/fonts">   
+<tag/Malayalam/   <htmlurl url="http://kerala.com/fonts.html" name="http://kerala.com/fonts.html">
+<tag/J*Mlm*Jaya/   <htmlurl url="http://kerala.com/fonts.html" name="http://kerala.com/fonts.html">
+
+</descrip>
+
+<!-- ============================================================= -->
+<sect1>Transliteration schemes
+<!-- ============================================================= -->
+
+
+<p>
+<descrip>
+
+<tag/ACK/ <htmlurl
+  url="http://www.kerala.org/culture/music/mal/scripts/"
+  name="http://www.kerala.org/culture/music/mal/scripts/processQuery.cgi?song_name=alphabet">
+
+<tag/ITRANS/ <htmlurl
+  url="http://www.paranoia.com/&tilde;avinash/itrans.html"
+  name="http://www.paranoia.com/&tilde;avinash/itrans.html">
+
+<tag/ISCII (IS 13194:1991) Standard/ <htmlurl
+   name = "http://www.cdac.org.in/html/gist/articles.htm"
+   url="http://www.cdac.org.in/html/gist/articles.htm">
+
+<tag/ISO/ <htmlurl url="http://ourworld.compuserve.com/homepages/"
+  name="http://ourworld.compuserve.com/homepages/stone_catend/translit.htm">
+
+<tag/Mozhi/ Chapter <ref id="mozhi" name="Mozhi">
+
+<tag/Velthuis/ <htmlurl
+  url="http://www.rug.nl/&tilde;velthuis/velthuis.html"
+  name="http://www.rug.nl/&tilde;velthuis/velthuis.html">
+
+<tag/Achayan/ <htmlurl
+url="http://members.tripod.com/&tilde;k_achayan"
+name="http://members.tripod.com/&tilde;k_achayan">              
+
+</descrip>
+
+<!-- ============================================================= -->
+<sect1> GUIs for varamozhi
+<!-- ============================================================= -->
+
+<p>
+<descrip>
+
+<tag/Madhuri/ <htmlurl name="http://members.tripod.com/&tilde;k_achayan"
+         url="http://members.tripod.com/&tilde;k_achayan">
+<tag/Font Converter/ <htmlurl name="http://members.tripod.com/&tilde;rajk/mal"
+        url="http://members.tripod.com/&tilde;rajk/mal">
+
+</descrip>
+
+<!-- ============================================================= -->
+<sect> Wish list
+<!-- ============================================================= -->
+
+<p>
+<itemize>
+<item> Dependency on Perl will be removed
+<item> Lam will be made more robust (Till now lam was just an academic
+  interest for me. I don't know anybody needs it for anything.)
+<item> A 7-bit transliteration scheme mozhi will be designed with
+  public participation
+</itemize>
+
+<!-- ============================================================= -->
+<sect>Acknowledgement
+<!-- ============================================================= -->
+
+<p>
+<descrip>
+<tag/Vinod(paathaari)/ for the name Varamozhi and for choosing
+most appropriate sample Malayalam text.
+
+<tag/Rajeev(ikru)/ for patiently using 'mal'  through
+its bug-full primitive phases. He got a reasonable collection
+of Malayalam cassette covers for his newly recoded cassettes
+at the end of system testing. He only have developed the web
+interface which covers a reasonable number of schemes and fonts.
+
+<tag/Rajesh(thavala)/ for making a nice banner for Varamozhi
+advertisement. He used the wonderful Malayalam font designed
+by Anoop.
+
+<tag/Anoop(bettachchan)/ was doing the remote site testing of
+'lam' of Varamozhi.  This poor guy tried to install it on HP
+and I received a big list of error output by next mail.
+
+<tag/Anthony P. Stone (Tony)/ for the insights he gave in
+Indic transliteration.
+
+<tag/Soji(achchaayan)/ for making me aware of the need of a COPYING file
+and pointed out how I could become Next Century Bill Gates
+with Varamozhi alone.
+</descrip>
+
+</article>

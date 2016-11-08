@@ -1,0 +1,267 @@
+#---------------------------------------------------------------------------------------------------------------------
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#
+#       Scheme = mozhi
+#
+
+        Comment = {, }
+        Carry Comment = Yes
+
+%% Double Quote
+%% Single Quote
+%% Symbols
+%% letter a
+%% Vowels
+%% Consonat + Vowel
+%% samvRthOkaaram (chandrakkaLa)
+%% General Letters
+%% Sa, sa and ga
+%% ta vargaakshrangal
+%% letter Da
+%% letter Na
+%% tha vargaakshrangal
+%% letter na
+%% letters zha and  ya
+%% letters ma
+%% letters La
+%% letter la
+%% letters ra and rra
+%% letter va
+%% koottaksharangngal
+%% macros
+
+^A/[:).]        = e
+^B/[:).]        = bi
+^C/[:).]        = si
+^D/[:).]        = Di
+^E/[:).]        = i
+^F/[:).]        = eph
+^G/[:).]        = ji
+^H/[:).]        = echch
+^I/[:).]          = ai
+^J/[:).]          = je
+^K/[:).]          = ke
+^L/[:).]          = el
+^M/[:).]          = em
+^N/[:).]          = en
+^P/[:).]          = pi
+^Q/[:).]          = kyoo
+^R/[:).]          = aarr
+^S/[:).]          = es
+^T/[:).]          = Ti
+^U/[:).]          = yu
+^V/[:).]          = vi
+^W/[:).]          = DabLiyu
+^X/[:).]          = eks
+^Y/[:).]          = vai
+^Z/[:).]          = seD
+
+# for english words
+
+ae                = E
+ei                = ai
+?eo        = iya
+eu                = yoo
+?ia               = iya
+io                = ayO
+oe = oa           = O
+qu                = kv
+
+?oi               = Oyi
+ue                = yoo
+?ui               = yoo
+
+#####################################
+# English related rules above and
+# Malayalam related rules below
+#####################################
+
+sam               = sam_
+s/am([pmaAeEiIoOuU]|[Rr]([~dutiA^]|aa)|yak) = s
+
+aam/n            = aam_
+eem/n            = eem_
+oom/n            = oom_
+
+\\:              = H
+
+A                     = aa
+ii = ie = ee = ea = I = ee
+ia                    = iya
+uu  = U               = oo
+
+# r-chillu related
+
+arh                   = ar_h
+irh                   = ir_h
+urh                   = ur_h
+
+# R related
+R^  = r\\   = rh  = rhu   = r^  = R
+R^^ = r\\\\ = rhh         = r^^ = RR
+L^  = l\\   = lh  = lhu   = l^  = Ll
+L^^ = l\\\\ = lhh         = l^^ = Lll
+
+k[rR]~ = kR
+g[rR]~ = gR
+gh[rR]~ = ghR
+j[rR]~ = jR
+th[rR]~ = thR
+d[rR]~ = dR
+dh[rR]~ = dhR
+n[rR]~ = nR
+p[rR]~ = pR
+b[rR]~ = bR
+bh[rR]~ = bhR
+m[rR]~ = mR
+v[rR]~ = vR
+S[rR]~ = SR
+s[rR]~ = sR
+h[rR]~ = hR
+^[rR]~ = R
+
+kr/[stm] = kR
+vr/[st]  = vR
+mr/[td]  = mR
+dr/D     = dR
+S[rR]/N  = SR
+sr/s     = sR
+hr/[dtl] = hR
+thr/[kptmsN] = thR
+
+R/[aeiouAEIOU] = rr
+aR = arr
+eR = err
+iR = irr
+oR = orr
+uR = urr
+uuR = oorr
+AR = Arr
+ER = Err
+IR = eerr
+OR = Orr
+UR = oorr
+
+yr       = y_r
+yv       = y_v
+
+
+# other not-so-intellegent mappings
+
+c/[^h]                = k
+K    = ck             = kk
+X                     = ksh
+x                     = ks
+q    = KH             = kh
+G                     = gg
+GH                    = gh
+
+ngk  = nk             = ngk
+ngg                   = ngg
+ngm                   = ngm
+ng_k                  = ng_k
+ng~k                  = ng~k
+
+?n/g                  = ngn
+NG   = nng = ngng     = ngng
+
+
+C                     = ch
+C[Hh]                 = chh
+cch                   = chch
+cchh                  = chchh
+
+
+J                     = jj
+jnj                   = jnj
+JH                    = jh
+
+njj                   = njj
+njch =  nch           = njch
+NJ   = njnj           = njnj
+?nj                   = njnj
+
+#\.t                  = T
+#\.th                 = Th
+#\.d                  = D
+#\.dh                 = Dh
+#\.n                  = N
+
+Tz                    = Ts
+#\.dd                 = DD
+#\.ddh                = DDh
+nnh                   = NN
+
+Nd    = Nt    =  nT   = NT
+Ndh                   = Ndh
+Nth                   = Nth
+#\.nth                = .nth
+
+TH    = tth           = thth
+THH   = tthh          = ththh
+DH                    = dh
+
+
+P                     = pp
+f     = F     = PH    = ph
+B                     = bb
+BH                    = bh
+M                     = mm
+
+
+Y                     = yy
+V     = W             = vv
+w                     = v
+
+Sh    = z/[^h]             = S
+Z                     = SS
+SH                    = sh
+shn                   = shN
+
+#\.l                  = L
+llh                   = LL
+ZH                    = zh
+
+#t/[^th]               = t
+#nt/[^th]              = nt
+tt/[^h]               = TT
+
+# zh_ represent chillu-zh. since that is deprecated, zh_va is written
+# with alternate sign of va to indicate that. chillu-zha usage is default.
+# except in non-standard words like 'thaazhvO' 
+
+zh/[nv][^O]           = zh_
+
+''                    = "
+``                    = "
+\)o = \)m             = @aam
+a8                    = aH
+e8                    = eH
+i8                    = iH
+o8                    = oH
+u8                    = uH
+
+A8                    = AH
+E8                    = EH
+I8                    = IH
+O8                    = OH
+U8                    = UH
+

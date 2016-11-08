@@ -1,0 +1,119 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008 -- 2001  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	{, } = Comment
+	Carry Comment = no
+
+%% Double Quote
+
+%% Single Quote
+
+%% Symbols
+
+@       = []
+H       = .h
+~       = <<+
+_       = >>
+n^      = nu
+
+a	= a
+aa	= aa
+i	= i
+ee	= ii
+u	= u
+oo	= uu
+R = R
+RR	= RR
+Ll = L
+Lll = LL
+
+e	= e
+E 	= ee
+ai	= ai
+o	= o
+O	= oo
+au	= au
+
+k	= k
+kh	= kh
+g	= g
+gh	= gh
+ng	= "n
+
+ch	= c
+chh	= ch
+j	= j
+jh	= jh
+nj	= ~n
+
+T	= .t
+Th	= .th
+D	= .d
+Dh	= .dh
+N	= .n
+
+th	= t
+thh	= th
+d	= d
+dh	= dh
+n	= n
+
+p	= p
+ph	= ph
+b	= b
+bh	= bh
+m	= m
+
+y	= y
+r	= r
+l	= l
+v	= v
+
+S	= sh
+sh	= .s
+s	= s
+h	= h
+
+L	= .l
+zh	= zh
+rr = .r
+t       = .r.r
+
+nt       = n.r
+mp       = m<<p
+
+%% letter a
+%% Vowels
+%% Consonat + Vowel
+%% samvRRthOkaaram (chandrakkala)
+%% General Letters
+%% Sa, sa and ga
+%% ta vargaakshrangaL
+%% letter Da
+%% letter Na
+%% tha vargaakshrangaL
+%% letter na
+%% letters zha and  ya
+%% letter la
+%% letters La and ma
+%% letters ra and rra
+%% letter va
+%% koottaksharangngal
+%% macros

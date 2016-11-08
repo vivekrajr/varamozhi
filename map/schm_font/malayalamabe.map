@@ -1,0 +1,257 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+      Font    = MalayalamAbe
+      Scheme  = mozhi
+      Comment = {,}
+      Carry Comment = No
+      Output HTML   = No
+      Allow R dot   = No
+
+%% Double Quote
+
+"     = ", ", "
+
+%% Single Quote
+
+`     = \145, \145, \146
+'     = '   , \145, \146
+
+%% Symbols
+
+_       =
+\b      = \b
+\t      = \t
+(       = \213
+)       = \214
+\,      = \,
+.       = .
+...     = ...|\133
+:       = \226
+;       = \225
+?       = ?
+-       = -
+
+\0       = 0
+\1       = 1
+\2       = 2
+\3       = 3
+\4       = 4
+\5       = 5
+\6       = 6
+\7       = 7
+\8       = 8
+\9       = 9
+
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9
+
+H     = _
+
+%% letter a
+
+a     = L
+
+%% Vowels
+
+aa    = :    ,         , l     , l
+i     = T    ,         , j     , J
+ee    = TO   ,         , J     , J
+u     = K    ,         , k     , o
+oo    = KO   ,         , o     , o
+R = \212 ,         , {     , {
+RR   = \212O,         , {O    , O
+e     = t    , s       ,       , J
+E     = ]    , S       ,       , J
+ai    = st   , ss
+o     = Q    , s       , l     , o
+O     = Ql   , S       , l     , o
+au    = QO   ,         , O     , O
+
+
+%% Consonant+Vowel
+
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~     = [, , [, [
+
+%% General Letters
+
+@     =
+
+k     = d
+kh    = D
+gh    = Z
+ng    = b
+
+ch    = v
+chh   = V
+j     = w
+jh    = W
+nj    = B
+
+p     = e
+ph    = E
+b     = ~
+bh    = >
+
+sh    = <
+h     = \|
+
+t     = \202
+
+y_    = u, , U
+v_    = i, , I
+
+
+%% Sa, sa and ga
+
+S     = C
+s     = c
+g     = z
+
+%% Ta vargaakshrangaL
+
+T     = m
+Th    = A
+Dh    = @
+
+
+%% letter Da
+
+D     = }
+
+%% letter Na
+
+N     = n, , , N
+
+%% tha vargaakshrangaL
+
+th    = f
+thh   = F
+d     = p
+dh    = P
+
+%% letter na
+
+n     = r, , , R
+
+%% letters zha and  ya
+
+y     = u, , U
+zh    = q
+
+%% letter ma
+
+m     = a, , , ;
+
+%% letter La
+
+L     = x, , ^, X
+
+%% letter la
+
+l     = h, , , H
+
+%% letters ra rra
+
+rr = y, Y, , G, \224
+r     = g, Y, , G, \224
+
+%% letter va
+
+v     = i, , I
+
+%% kooTTaksharangngaL
+
+kk    = )
+ksh   = \201
+
+gg    = \206
+gn    = \222
+
+ngk   = (
+ngng  = *
+
+chch  = v&
+
+njch  = \209
+njnj  = \200
+
+TT    = M
+
+NT    = !
+
+ND    = \221
+NN    = \207
+
+thth  = \\
+ththh = \208
+thm   = \216
+thn   = \220
+thbh  = \217
+ths   = \205
+
+dd    = `
+ddh   = \223
+
+nth   = %
+nthh  = \218
+nd    = $
+ndh   = \219
+nn    = \#
+nm    = \210
+nt    = Ry
+pp    = /
+
+bb    = ~&
+mp    = \211
+mm    = +
+
+yy    = u&
+
+ll    = h^
+
+vv    = i&
+
+ss    = \204
+
+hn    = \215
+LL    = \=
+
+%% macro
+
+m/kr    = m_
+
+
+# there is a conflict in SVARKOOT. 'ryoo' need 'canadd + SVARKOOT' and 'rvRR' need 'noadd + SVARKOOT'
+# right now, there is only one property can be assigned to SVARKOOT involved rules.
+# that is, 'canadd + SVARKOOT'. So is following hack..
+
+r/v[rR] = r_

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>Varamozhi: Usage</TITLE>
+ <LINK HREF="varamozhi-5.html" REL=next>
+ <LINK HREF="varamozhi-3.html" REL=previous>
+ <LINK HREF="varamozhi.html#toc4" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="varamozhi-5.html">Next</A>
+<A HREF="varamozhi-3.html">Previous</A>
+<A HREF="varamozhi.html#toc4">Contents</A>
+<HR>
+<H2><A NAME="s4">4. Usage</A></H2>
+
+<H2><A NAME="ss4.1">4.1 Usage of <CODE>mal</CODE></A>
+</H2>
+
+<P>This program converts text in English script to Malayalam script.
+Malayalam script will be outputted as font keystrokes. Assumes all
+the kerning or positioning information is encoded in the font itself.
+<P>
+<H3>Synopsis</H3>
+
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+      mal [-c] [-h ] [-r] [-o output_file] [input_files...]
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<H3>Options</H3>
+
+<P>
+<DL>
+<DT><B><CODE>-c</CODE></B><DD><P>If specified the commented portion should be retained
+along with the characters for commenting. Default action
+is to remove commented characters and do the required
+processing to the comment.
+<P>This is required when multiple levels of processing is
+required and the commented text should pass intact through
+all but last one and comment processing is done only in the
+last phase. Example could be coupling of scheme to scheme
+conversion with scheme to font conversion
+<P>
+<DT><B><CODE>-h</CODE></B><DD><P>Generates primitive HTML output. Only the font information
+is coded in the output. If not specified does plain
+transliteration.  All uncommented characters are considered
+as Malayalam characters and will be wrapped together in
+HTML font tags.
+<P>
+<DT><B><CODE>-r</CODE></B><DD><P>In old Malayalam texts, the chillu form of <EM>`R'</EM> is usually
+put as a dot above the succeeding consonant, if exists.
+If the flag <CODE>-r</CODE> is set, where ever possible chillu <EM>`R'</EM> will
+be put in dot form. Default action is not to use this dot
+for chillu <EM>`R'</EM>.
+<P>
+<DT><B><CODE>-o output_file</CODE></B><DD><P>Place output in the file <CODE>output_file</CODE>. If this flag is
+not specified, output is taken to standard output.
+<P>
+<DT><B><CODE>input_files</CODE></B><DD><P>If specified, input is taken from <CODE>input_files</CODE> parameters,
+in the order from left to right. (There can be more than one
+input file parameter.) If no input file is specified then
+input is received from the standard input.
+</DL>
+<P>Defaults values of <CODE>-c</CODE>, <CODE>-h</CODE> and <CODE>-r</CODE> can be changed by configuring the
+mapfile.
+<P>
+<H2><A NAME="ss4.2">4.2 Usage of <CODE>lam</CODE></A>
+</H2>
+
+<P>      
+Converts text in Malayalam script (font keystrokes)
+to English script.  <CODE>lam</CODE> take input from standard input
+and output to standard output.
+<P>
+<H2><A NAME="ss4.3">4.3 Font conversion</A>
+</H2>
+
+<P>      
+I will describe this with an example. Suppose you want to covert
+a document in Karthika font to Manorama font. Then you need two
+mapfiles - for each font, with same transliteration scheme.
+Assume we already have karthika.ack and manorama.ack.
+Create <CODE>lam</CODE> with setting <CODE>MAPFILE</CODE> variable in Makefile
+as <CODE>karthika.map</CODE>. Similarly create <CODE>mal</CODE> with setting <CODE>MAPFILE</CODE>
+variable as <CODE>manorama.map</CODE>. Now the following command will complete
+the conversion:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+$ lam &lt; doc_in_karthika | mal &gt; doc_in_manorama
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<H2><A NAME="ss4.4">4.4 Scheme conversion</A>
+</H2>
+
+<P>Scheme conversion can adopt a strategy described in Font Conversion
+section. But there are easier ways for that. It would be interesting
+to look at the sample scheme conversion mapfiles given in the
+varamozhi/schemes directory.  Suppose we want to convert from scheme A
+to scheme B. Then we write all the characters defined in the scheme A
+as <EM>SYMBOLS</EM> having translation to corresponding ones in scheme B.
+Then compile as we do for normal scheme to font conversion.
+<P>
+<P>
+<H2><A NAME="ss4.5">4.5 Application programming interface of <CODE>mal</CODE></A>
+</H2>
+
+<P>Varamozhi has the facility for generating an API function for
+English to Malayalam transliteration.
+<P>
+<H3>Synopsis</H3>
+
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+
+extern int   carrycomment;
+extern int   outputhtml;
+extern int   allowRdot;
+extern char* mal_out_text;
+
+char* mal_parse(const char* mal_in_text);
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<H3>Description</H3>
+
+<P><CODE>mal_parse()</CODE> takes character string as input parameter.
+After conversion the output string is placed in mal_out_text
+and starting address is returned by <CODE>mal_parse()</CODE>. While
+compiling this function along with third party software,
+macro <CODE>EXECUTABLE</CODE> should be undefined. This macro decides
+whether to make the executable or function from the code.
+<P>
+<P>Setting the external variables <CODE>carrycomment, outputhtml</CODE>
+and <CODE>allowRdot</CODE> will set the functionalities specified as
+<CODE>-c</CODE> <CODE>-h</CODE> and <CODE>-r</CODE> in the usage of <CODE>mal</CODE> true. On resetting,
+the default actions are assumed.
+<P>
+<HR>
+<A HREF="varamozhi-5.html">Next</A>
+<A HREF="varamozhi-3.html">Previous</A>
+<A HREF="varamozhi.html#toc4">Contents</A>
+</BODY>
+</HTML>

@@ -1,0 +1,621 @@
+<PRE>
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. at cibucj@gmail.com
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                README
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This tool is a code generator for transliteration of Malayalam text
+between English and Malayalam script. It is configurable for any
+transliteration scheme and any Malayalam font. No font is included
+in this package. But URLs for getting some Malayalam fonts are given.
+
+=======================================================================
+0. CONTENTS
+=======================================================================
+
+   0. Contents
+   1. Installation
+   2. Usage of mal
+   3. Usage of lam
+   4. Font conversion
+   5. Scheme conversion
+   6. mal API
+   7. Distribution structure
+   8. Mozhi scheme
+   9. Mapfile entries
+  10. Formalisation
+  11. Fonts and URLs
+  12. Schemes and URLs
+  13. Wish list
+      Thanks
+
+=======================================================================
+1. INSTALLATION
+=======================================================================
+
+Requirements
+------------
+1. Perl 5
+2. flex
+3. bison
+4. gcc
+5. Perl/Tk
+
+
+Baisc Steps
+-----------
+ * download the sourcecode from http://varamozhi.sf.net
+
+ * Open the package in a convenient directory as:
+   gunzip < varamozhi_editor_source.tgz | tar -xvf -
+
+ * change directory to 'varamozhi/'
+
+ * compile as 'make FONT=kerala'. Simillarly, compile for all fonts you need.
+
+ * run varamozhi/gui/editor.pl
+
+Modifications for new font or transliteration
+---------------------------------------------
+
+ * Sample configuration files are given in 'varamozhi/schm_schm/'
+   and 'varamozhi/schm_font/'. The files in the first directory
+   map between two transliteration schemes and the second one
+   between a font and a transliteration scheme. So these
+   configuration files are called mapfiles. They can be used as
+   they are or modified for different scheme and font. Syntax and
+   semantics of the entries in a 'mapfile' are explained in
+   a section below.
+
+ * Following variables may be edited in 'varamozhi/Makefile'.
+   a. SCHMLIST representing the mapfiles to be used; typically
+      for scheme to scheme conversion.
+   b. SCHMDIR representing the directory where mapfiles
+      specified by $SCHMLIST are found.
+   c. FONTLIST representing the mapfiles to be used; typically
+      for scheme to font conversion.
+   d. FONTDIR representing the directory where mapfiles
+      specified by $FONTLIST are found.
+   e. PARSER will specify the parser generator to be used.
+      It should be 'yacc' like. One choice other than yacc
+      would be 'bison'.
+   f. BINDIR is the directory where binaries will be created.
+
+   Note: The mapfiles given has .map extension. But this
+   extension should not be specified in $SCHMLIST or $FONTLIST.
+
+*  make
+   This will create all the executables for scheme to scheme
+   and scheme to font conversion in 'varamozhi/bin/malbin/*'.
+   Similarly executables doing the reverse in
+   'varamozhi/bin/lambin/*'. For generating executables for
+   forward conversion (English to Malayalam) only, do
+   "make mal". For reverse conversion, do "make lam". "make api"
+   will generate the API functions for forward conversion.
+
+
+Installing on HP
+----------------
+You may need to give -Xa1000 option for flex.
+
+
+Installing on NT/Windows
+------------------------
+
+You need to have a cross platform CASE tool which will
+give you flex and yacc. Two such case tools are:
+
+ftp://ftp.cygnus.com/pub/gnu-win32/latest/  - From Cygnus Solutions
+http://www.research.att.com/sw/tools/uwin/  - From AT&T
+        (For the later you need to have a native C compiler)
+
+If you are using these tools, you may need to edit
+make variable like $PARSER and $SCANNER accordingly.
+
+If you could reach up to the .c and .h files in a Unix
+machine and just want to make the .exe in NT/windows,
+take .c/.h files from 'varamozhi/bin/malapi/<schm_..>/<font/scheme>/'
+directory and alloca.c and getopt.c from 'varamozhi/win/',
+put them in MS machine and do the compilation as:
+
+    cl /Femal.exe y.tab.c lex.yy.c alloca.c getopt.c
+
+=======================================================================
+2. USAGE OF 'mal'
+=======================================================================
+
+This program converts text in English script to Malayalam script.
+Malayalam script will be outputted as font keystrokes. Assumes all
+the kerning or positioning information is encoded in the font itself.
+
+Synopsis
+--------
+
+      mal [-c] [-h ] [-r] [-o output_file] [input_files...]
+
+Options
+-------
+
+     -c   If specified the commented portion should be retained
+          along with the characters for commenting. Default action
+          is to remove commented characters and do the required
+          processing to the comment.
+
+          This is required when multiple levels of processing is
+          required and the commented text should pass intact through
+          all but last one and comment processing is done only in the
+          last phase. Example could be coupling of scheme to scheme
+          conversion with scheme to font conversion
+
+     -h   Generates primitive HTML output. Only the font information
+          is coded in the output. If not specified does plain
+          transliteration.  All uncommented characters are considered
+          as Malayalam characters and will be wrapped together in
+          HTML font tags.
+
+     -r   In Old Malayalam texts, the chillu form of R is usually
+          put as a dot above the succeeding consonant, if exists.
+          If the flag '-r' is set, where ever possible chillu R will
+          be put in dot form. Default action is not to use this dot
+          for chillu R.
+     
+     -o output_file
+          Place output in the file output_file. If this flag is
+          not specified, output is taken to standard output.
+
+     input_files
+          If specified, input is taken from input_files parameters,
+          in the order from left to right. (There can be more than one
+          input file parameter.) If no input file is specified then
+          input is received from the standard input.
+
+     Defaults values of -c, -h and -r can be changed by configuring the
+     mapfile.
+
+=======================================================================
+3. USAGE OF 'lam'
+=======================================================================
+      
+Converts text in Malayalam script (font keystrokes)
+to English script.  'lam' take input from standard input
+and output to standard output.
+
+=======================================================================
+4. FONT CONVERSION
+=======================================================================
+
+I will describe this with an example. Suppose you want to covert
+a document in Karthika font to Manorama font. Then you need two
+mapfiles - for each font, with same transliteration scheme.
+Assume we already have karthika.ack and manorama.ack.
+Create 'lam' with setting MAPFILE variable in Makefile
+as karthika.ack. Similarly create 'mal' with setting MAPFILE
+variable as manorama.ack. Now the following command will complete
+the conversion:
+
+$ lam < doc_in_karthika | mal > doc_in_manorama
+
+
+=======================================================================
+5. SCHEME CONVERSION
+=======================================================================
+
+Scheme conversion can adopt a strategy described in Font Conversion
+section. But there are easier ways for that. It would be interesting
+to look at the sample scheme conversion mapfiles given in the
+varamozhi/schemes directory.  Suppose we want to convert from scheme A
+to scheme B. Then we write all the characters defined in the scheme A
+as SYMBOLS having translation to corresponding ones in scheme B.
+Then compile as we do for normal scheme to font conversion.
+
+=======================================================================
+6. DISTRIBUTION STRUCTURE
+=======================================================================
+
+SAMARPPANAM.gif
+COPYING           Terms of Copying
+README            This file
+Paper.txt         A paper on design of Varamozhi
+Makefile
+schm_schm         Sample mapfiles for conversion from
+                  one scheme to mozhi scheme
+schm_font         Sample mapfiles from mozhi scheme to
+                  some of the available fonts
+malsrc            Source code for transliteration from
+                  English to Malayalam script
+lamsrc            Source code for transliteration from
+                  Malayalam to English script
+win               Contains additional .c files required for
+                  compilation in Windows environment.
+bin               Will contain executables and .c/.h files
+                  after the build. Its structure will be
+bin ----- malbin ------ schm_schm ---- <binary files for schm2schm>
+  |              |
+  |              +----- schm_font ---- <binary files for schm2font>
+  |
+  +------ lambin ------ schm_schm ---- <binary files for schm2schm>
+  |              |
+  |              +----- schm_font ---- <binary files for schm2font>
+  |
+  +------ malapi ------ schm_schm ---- <schemes> -- .[ch] files
+                 |
+                 +----- schm_font ---- <fonts> ---- .[ch] files
+
+
+=======================================================================
+7. APPLICATION PROGRAMMING INTERFACE OF 'mal'
+=======================================================================
+
+Varamozhi has the facility for generating an API function for
+English to Malayalam transliteration.
+
+Synopsis
+--------
+extern int   carrycomment;
+extern int   outputhtml;
+extern int   allowRdot;
+extern char* mal_out_text;
+
+char* mal_parse(const char* mal_in_text);
+
+Description
+-----------
+
+mal_parse() takes character string as input parameter.
+After conversion the output string is placed in mal_out_text
+and starting address is returned by mal_parse(). While
+compiling this function along with third party software,
+macro EXECUTABLE should be undefined. This macro decides
+whether to make the executable or function from the code.
+
+Setting the external variables carrycomment, outputhtml
+and allowRdot will set the functionalities specified as
+-c -h and -r in the usage of 'mal' true. On resetting 
+default actions are assumed.
+
+
+Build
+-----
+
+Do installation with "make api" as step 4.
+
+This creates all the .c and .h files; but will not make
+the executable. All the required .c and .h files are copied
+to varamozhi/bin directory.
+     
+=======================================================================
+8. MOZHI SCHEME
+=======================================================================
+     
+Vowels
+------
+     a      aa      i     ii     u    uu
+     r^     r^^     l^    l^^
+     e      E       ai    o      O    au
+
+Consonants
+----------
+     ka     kha     ga    gha    nga
+     cha    chha    ja    jha    nja
+     Ta     Tha     Da    Dha    Na
+     tha    thha    da    dha    na
+     pa     pha     ba    bha    ma
+     
+     ya     ra      la    va
+     Sa     sha     sa    ha
+     La     zha     rra   ta
+
+Symbols
+-------
+     visargam                     H
+     praSLEsham (avagraha)        $
+     samvr^thOkaaram              ~
+     (viraama or chandrakkala)
+     <date>th                     n^ (eg: 17-n^)
+     
+     zero-width-symbol            _
+     zero-width-character         @
+
+     dollar                       \$
+     tilde                        \~
+     at                           \@
+     underscore                   \_
+     backslash                    \\
+     caret                        \^
+     
+     Symbols undefined; but found in old Malayalam texts:
+     1/2, 3/4
+
+Equivalences
+------------
+[rule: For a Capitalised sequence (say 'X'), if there exists
+       a double (ie, 'xx') for its the corresponding lower-case
+       sequence (ie, 'x'), then X is considered to be equivalent
+       to that double (ie, X = xx). Otherwise capitalised sequence
+       is equivalent to the lower-case sequence. (ie, X = x).
+If a meaning is already assigned to a capitalised sequence, then
+above rule is not applied. eg: Since 'H' is visargam symbol; 'H' is not
+equivalent to 'h'. Similarly, 'D' is not equivalent to 'dd'.]
+
+
+          H    = \:
+
+          aa   = A
+          ii   = ie = ei = ee = ea = I
+          uu   = oo = U
+          r^   = rr^     = R^
+          r^^  = rr^^    = R^^
+          l^   = L^
+          l^^  = L^^
+          au   = ou
+
+          k    = q
+          kk   = K  = Q
+          kh   = KH
+          gg   = G
+          gh   = GH
+          ngng = NG
+
+          ch   = c
+          chch = CH = C
+          chh  = CHH
+          jj   = J
+          jh   = JH
+          njnj = NJ
+
+          thth = TH
+          dh   = DH
+
+          pp   = P
+          ph   = PH = f = F
+          bb   = B
+          bh   = BH
+          mm   = M
+          
+          yy   = Y
+          v    = w
+          vv   = V = W
+          sh   = SH
+          s    = z
+          ss   = Z
+          zh   = ZH
+          t    = tt = RR
+
+          rr   = R
+          ksh  = x = X
+
+Dirty but Useful Equivalences
+-----------------------------
+          njnj = nnj
+          njch = nch
+          NT   = Nd = Nt
+          ngng = nng
+          ngk  = nk
+          kk   = ck
+          thth = tth
+          chch = cch
+
+
+=======================================================================
+9. SYNTAX AND SEMANTICS OF 'mapfile' ENTRIES
+=======================================================================
+
+Note: The transliteration scheme used in this document is Mozhi.
+
+This file maps between the transliteration scheme and
+the font. This file has following sections:
+
+0.  General
+1.  Double Quote Symbol
+2.  Single Quote Symbol
+3.  Other Symbols           (chihnangngaL)
+4.  letter - a              (the first vowel)
+5.  Rest of the vowels      (svarangngaL)
+6.  Consonant+vowel conjuncts (vyanjjanam+svaram)
+7.  samvr^thOkaaram         (popularly known as 'chandrakkala')
+8.  General Consonants
+9.  ga, Sa and sa
+10. Ta-vargam
+11. Letter  - Da
+12. Letter  - Na
+13. tha-vargam
+14. Letter  - na
+15. Letter  - ya
+16. Letter  - la
+17. Letters - La and ma
+18. Letters - ra and Ra
+19. Letter  - va
+20. Conjunct Ligatures (kooTTaksharangngaL)
+
+General
+-------
+
+This section provides the information which is not the
+part of transliteration scheme definition.
+
+a. Before starting all sections font name should be provided
+   as "Font = <font_name>". This font name will be used
+   in the HTML font tag when output in in HTML.
+
+b. The characters used to comment out the text from processing
+   is defined as "Comment = <Left_comment_tag>, <Right_comment_tag>".
+
+c. Transliteration directive "Carry Comment = Yes/No". 'No' is
+   the default. See detailed discussion on usage of -c flag of 'mal'.
+   
+d. Transliteration directive "Output HTML = Yes/No". 'No' is
+   the default. See detailed discussion on usage of -h flag of 'mal'.
+   
+e. Transliteration directive "Allow R Dot = Yes/No". 'No' is
+   the default. See detailed discussion on usage of -r flag of 'mal'.
+   
+
+Other Sections
+--------------
+
+(please see section on formalisation for definitions)
+
+All other sections start with the special tag '%%'. All
+lines before next %% or end of file will be in that section.
+That is nth section will start with nth %% tag.
+Each line in a section will contain a number of fields separated
+by '='. Except the last, all fields will represent same
+letter or symbol. The program 'lam' will use only the
+first string while transliteration. Font information is
+encoded in the last field. This field will have at the
+most four subfields separated by commas. These subfields
+are explained below.
+
+The first subfield will represent the independent glyph,
+the second and third subfields will represent right and
+left sign glyphs respectively.  The last one will represent
+the chillu glyph. Each subfield should
+represent the corresponding font key stroke. If that key
+stoke is not a normal typewriter character (an Alt+ key
+combination) you need to write its decimal ASCII number
+quoted with a slash (eg : \147). Now if more than two key
+strokes represent same glyph, then write all of them as
+| (pipe symbol) separated (eg: \147|\148). The program 'mal' will
+use only the first one. That is \147 from previous example.
+
+Characters having special meaning
+---------------------------------
+
+o  = , and | are used as field separators.
+o  The blank lines and blanks are ignored.
+o  '#' is used for commenting.
+o  Following characters should be quoted using
+   backslash: # , \ = |
+o  \b represents single space.
+o  \n represents newline character.
+
+All symbols which are not specified in the 'mapfile' will
+be copied as such and will be considered as Malayalam
+characters when font tags are attached in the HTML output.
+
+=======================================================================
+10. FORMALISATION
+=======================================================================
+
+This section is meant for the standardisation bodies and
+those who work in Malayalam/Dravidian/Indic transliteration.
+This will serve as the design document also.
+
+Please see the Paper.txt in the distribution.
+
+=======================================================================
+11. FONTS AND URLS
+=======================================================================
+
+   +-------------+---------------------------------------------------+
+   | Manorama    | http://www.malayalamanorama.com/fonts/getfont.htm |
+   |-------------|---------------------------------------------------|
+   | Deepa       | http://paul.rutgers.edu/~gsuresh/varamozhi/       |
+   |             |                                     deepa.html    |
+   |-------------|---------------------------------------------------|
+   | Karthika    | http://www.deepika.com/downloadfont.asp           |
+   |-------------|---------------------------------------------------|
+   | Veena       | http://www.kalakaumudi.net/font.html              |
+   |-------------|---------------------------------------------------|
+   | Vidya       | http://www.mathrubhumi.com/messg.htm              |
+   |-------------|---------------------------------------------------|
+   | Tulasi      | http://www.desabhimani.com                        |
+   |-------------|---------------------------------------------------|
+   | KERALA      | http://sellnbuy.com/public/kerala.zip             |
+   |-------------|---------------------------------------------------|
+   | KERALAX     | http://www.keralax.com/font/font.htm              |
+   |-------------|---------------------------------------------------|
+   | Kaveri      | http://www.indusdesh.com/malayanma/weekly/week7/  |
+   |             |                                      download.htm |
+   |-------------|---------------------------------------------------|
+   | Malayalam & | http://kerala.com/fonts.html                      |
+   | J*Mlm*Jaya  |                                                   |
+   |-------------|---------------------------------------------------|
+   | Gayathri &  | http://www.kerala.org/fonts                       |
+   | Janaranjani |                                                   |
+   +-------------+---------------------------------------------------+
+
+=======================================================================
+11. TRANSLITERATION SCHEMES AND URLS
+=======================================================================
+
+   +-------------+---------------------------------------------------+
+   | ACK         | http://www.kerala.org/culture/music/mal/scripts/  |
+   |             |               processQuery.cgi?song_name=alphabet |
+   |-------------|---------------------------------------------------|
+   | ITRANS      | http://www.paranoia.com/~avinash/itrans.html      |
+   |-------------|---------------------------------------------------|
+   | ISO         | http://ourworld.compuserve.com/homepages/         |
+   |             |                         stone_catend/translit.htm |
+   |-------------|---------------------------------------------------|
+   | Mozhi       | Described in a previous section                   |
+   |-------------|---------------------------------------------------|
+   | Velthuis    | http://www.rug.nl/~velthuis/velthuis.html         |
+   |-------------|---------------------------------------------------|
+   | Achayan     | http://members.tripod.com/~k_achayan              |
+   +-------------+---------------------------------------------------+
+
+=======================================================================
+12. WISH LIST
+=======================================================================
+
+* Dependency on Perl will be removed
+* Lam will be made more robust (Till now lam was just an academic
+  interest for me. I don't know anybody needs it for anything.)
+* A 7-bit transliteration scheme mozhi will be designed with
+  public participation
+
+=======================================================================
+THANKS
+=======================================================================
+
+Vinod(paathaari) for the name Varamozhi and for choosing
+most appropriate sample Malayalam text.
+
+Rajeev(ikru) for patiently using 'mal'  through
+its bug-full primitive phases. He got a reasonable collection
+of Malayalam cassette covers for his newly recoded cassettes
+at the end of system testing. He only have developed the web
+interface which covers a reasonable number of schemes and fonts.
+
+Rajesh(thavala) for making a nice banner for Varamozhi
+advertisement. He used the wonderful Malayalam font designed
+by Anoop.
+
+Anoop(bettachchan) was doing the remote site testing of
+'lam' of Varamozhi.  This poor guy tried to install it on HP
+and I received a big list of error output by next mail.
+
+Anthony P. Stone (Tony) for the insights he gave in
+Indic transliteration.
+
+Soji for making me aware of the need of a COPYING file
+and pointed out how I could become Next Century Bill Gates
+with Varamozhi alone.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Your comments, suggestions and bugs are always welcome.
+
+                                                             Cibu C. J.
+                                                       cibucj@gmail.com
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,0 +1,79 @@
+/*
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+%e 2000
+%k 3000
+%a 6000
+%o 8000
+
+
+%{
+
+#include <stdlib.h>
+#include "strstruct.h"
+#include "strpair.h"
+#include "mal-type.h"
+#include "mal.tab.h"
+
+BOOLEAN carrycomment;
+
+%}
+
+%option nounput
+%option noyywrap
+
+%x COMMENT_CURL
+%x COMMENT_ANGLE
+
+%%
+
+<INITIAL>"{"       {
+                       BEGIN(COMMENT_CURL);
+                       yylval.str = yytext;
+                   }
+
+<COMMENT_CURL>[^}]* {}
+
+<COMMENT_CURL>"}"  {
+                      /* yylval.str will contain everything from { to } including braces. */
+                      int i, j;
+
+                      for (i=1, j=0; yylval.str[i+1] != 0; i++, j++) {
+                          yylval.str[j] = yylval.str[i];
+                      }
+                      yylval.str[j] = 0;
+
+                      BEGIN(INITIAL);
+                      return ENGLISH;
+                   }
+
+<INITIAL>"<"       {
+                       BEGIN(COMMENT_ANGLE);
+                       yylval.str = yytext;
+                   }
+
+<COMMENT_ANGLE>[^>]*  {}
+
+<COMMENT_ANGLE>">"  {
+                      BEGIN(INITIAL);
+                      return ENGLISH;
+                   }
+

@@ -1,0 +1,306 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	Font    = Mathrubhumi Normal
+	Scheme  = mozhi
+	Comment = {,}
+	Carry Comment = No
+	Output HTML   = No
+	Allow R dot   = No
+
+%% Double Quote
+
+"	=
+
+%% Single Quote
+
+`	= E, ', E
+'	= E, ', '
+
+%% Symbols
+
+\|	=
+_	=
+\b      = \b
+.       = .
+;       = ;
+:       = :
+\,      = \,
+(       = (
+)       = )
+?       = ?
+[       = \202
+]       = \203
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9
+
+H 	= H
+-	= \191
+n^	= \213
+
+%% letter a
+
+a     = "
+
+%% Vowels
+
+aa	= \#, ,l
+i	= $, , r
+ee	= $m, , s
+u	= <, , u|\248
+oo	= <m, , q
+R = @, , n
+RR	= @m, , \188|nm
+e	= A
+E	= B, \165
+ai	=
+o	= D, , l
+O	= Dl, \165, l
+au	= Dm, , m
+
+
+%% Consonant+Vowel
+%% samvRRthOkaaram (chandrakkaLa)
+
+~	= o, , o, o
+
+%% General Letters
+
+@	=
+
+k	= I, , \166
+kh	= J
+gh	= L
+ng	= M
+
+ch	= N
+chh	= O
+j	= P
+jh	= Q
+nj	= R
+
+p	= ], , \182
+ph	= ^, , \174
+b	= _
+bh	= `
+
+sh	= g
+h	= i
+
+t	= \154
+
+
+%% Sa, sa and ga
+
+S	= f, , \183
+s	= h
+g	= K
+
+%% Ta vargaakshrangaL
+
+T	= S, , \181
+Th	= T
+Dh	= V, , \184
+
+
+%% letter Da
+
+D	= U
+
+%% letter Na
+
+N	= W, , \175, \130
+
+%% tha vargaakshrangaL
+
+th	= X, , \180
+thh	= Y
+d	= Z
+dh	= [
+
+%% letter na
+
+n	= \\, , \179, \132
+
+%% letters zha and  ya
+
+y	= b, , p
+zh	= \187
+
+%% letter la
+
+l	= d, , \189, \171
+
+%% letter ma
+
+m	= a, , \178, G
+
+%% letter La
+
+L	= j, , \189, y
+
+%% letters ra rra
+
+rr = t, w, , \134
+r	= c, w, , \134
+
+%% letter va
+
+v	= e, ,v
+
+%% kooTTaksharangngaL
+
+kk	= \|
+kr    = krr = \198
+kR = \199
+ksh	= k
+kth   = \185
+kthr  = kthrr = \196
+kT    = \197
+
+gg	= \173
+gn	= \225
+gm	= \222
+gr    = grr = \220
+gR = \221
+gbh   = \223
+gd    = \224
+gddh  = \231
+ghr   = ghrr = \144
+
+ngk	= \163
+ngng	= \159
+
+chch	= N\129
+chchh = \149
+
+jj    = \170
+jnj   = \201
+jr    = jrr = \200
+jR = \228
+
+njch	= \176
+njchh = \205
+njnj	= \131
+njj   = \210
+
+TT	= \136
+Tr    = Trr = \209
+Dr    = Drr = \235
+DDh   = \247
+Dj    = \251
+
+NT	= \155
+ND	= \254
+NDr   = NDrr = \255
+NN	= \252
+Nm	= \253
+
+thth	= \140
+ththh	= \162
+thm	= \164
+thn	= \186
+thR = \242
+thr   = thrr = \243
+thbh  = \244
+ths   = \246
+
+dR = \204
+dr    = drr = \206
+dd	= \169
+ddh	= \138
+dhr   = dhrr = \249
+dhR = \250
+
+nth	= \141
+nthr  = nthrr = \212
+nthh	= \153
+nd	= X
+ndr   = ndrr = \229
+ndh	= \135
+ndhr  = ndhrr = \233
+nn	= ~
+nm	= \211
+nt	= \132t
+nR = \229
+
+pr    = prr = \139
+phr   = phrr = \145
+bb	= _\129
+bd    = }
+br    = brr = {
+bhr   = bhrr = \207
+bhR = \208
+
+mp	= \156
+mpr   = mprr = \234
+mm	= \152
+mL	= ml = \150
+mr    = mrr = \190
+
+ykk   = \192
+ym    = \193
+yy	= \133|b\129
+yth   = \194
+ythth = \146
+
+ll	= d\189
+vv	= e\129
+vr    = vrr = \216
+
+Sch   = \167
+SS	= \143
+Sr    = Srr = \226
+SR = \227
+
+shkR = \172
+shpr  = shprr = \195
+shTr  = shTrr = \177
+
+sthh  = z
+sR = \236
+sr    = srr = \237
+st    = \238
+smR = \239
+sthr  = \240
+skR = \241
+
+hm    = \157
+hn	= \161
+hR = \147
+hr    = hrr = \148
+LL	= \168
+
+zhv   = \214
+zhch  = \215
+zhk   = \217
+zhnn  = \218
+zhthth= \219
+
+
+%% macro

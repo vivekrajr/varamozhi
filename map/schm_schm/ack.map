@@ -1,0 +1,200 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#    Scheme = ack
+#
+#    a    aa   i   ee   u   oo  R~
+#    e    E    o   O    ai  ou  am  a:
+# 
+#    ka   kha  ga  gha  nGa
+#    cha  Cha  ja  jha  nJa
+#    ta   Ta   Da  Dha  Na
+#    tha  Tha  da  dha  na
+#    pa   pha  ba  bha  ma
+#    ya   ra   la  va
+#    Sa   sha  sa  ha
+#    Ra   zha  La  TTa
+# 
+
+#    More info available in:
+#    http://www.kerala.org/culture/music/mal/scripts/processQuery.cgi?song_name=alphabet
+
+
+
+    Comment = {, }
+    Carry Comment = Yes
+
+%% Double Quote
+%% Single Quote
+
+%% Symbols
+
+:	= H
+nu~	= nu^
+
+a	= a
+aa	= aa
+i	= i
+ee	= ii
+u	= u
+oo	= uu
+R~	= r^
+R~~	= r^^
+e	= e
+E 	= E
+ai	= ai
+o	= o
+O	= O
+ou	= au
+
+~ 	= ~
+
+k	= k
+kh	= kh
+g	= g
+gh	= gh
+nG	= ng
+
+ch	= ch
+Ch	= chh
+j	= j
+jh	= jh
+nJ	= nj
+
+t	= T
+T	= Th
+D	= D
+Dh	= Dh
+N	= N
+
+th	= th
+Th	= thh
+d	= d
+dh	= dh
+n	= n
+
+p	= p
+f	= ph = ph
+b	= b
+bh	= bh
+m	= m
+
+y	= y
+r	= r
+l	= l
+v	= w = v
+
+S	= S
+sh	= sh
+s	= z = s
+h	= h
+
+L	= L
+zh	= zh
+R	= rr
+TT	= t
+
+kk = ck	= kk
+ksh = ksh
+gg = gg
+gn = gn
+gm = gm
+nk	= nGk   = ngk
+nGnG = nnG	= ngng
+
+chch = cch	= chch
+nJch = nch	= njch
+nJnJ = nnJ	= njnj
+
+tt = TT
+Nt = NT
+ND = ND
+NN = NN
+Nm = Nm
+
+thth = tth	= thth
+ththh = tTh	= ththh
+thbh = thbh
+thm = thm
+thn = thn
+dd = dd
+ddh = ddh
+
+nth = nth
+nthh = nthh
+nd = nd
+ndh = ndh
+nn = nn
+nm = nm
+nt	= nt
+
+pp = pp
+bb = bb
+mp = nb	= mp
+mm = mm
+mL = mL
+
+yy = yy
+ll = ll
+ls = ls
+vv = vv
+SS = SS
+ss = ss
+hn = hn
+LL = LL
+
+
+%% letter a 
+%% Vowels
+%% Consonat + Vowel
+%% samvr^thOkaaram (chandrakkala) 
+%% General Letters
+%% Sa, sa and ga
+%% ta vargaakshrangaL
+%% letter Da
+%% letter Na
+%% tha vargaakshrangaL
+%% letter na
+%% letters zha and  ya
+%% letter la
+%% letters La and ma
+%% letters ra rra
+%% letter va
+%% kooTTaksharangngaL
+%% macros
+
+- = 
+
+ng = mg
+
+nnJ               = nnJ
+nJj               = nJj
+jnJ               = jnJ
+nJch              = nJch
+nJnJ              = nJnJ
+nJ                = nnJ
+
+rnGa              = rnGa
+nnG               = nnG
+nGk               = nGk
+nGg               = nGg
+nGm               = nGm
+nGnG              = nGnG
+nG                = nnG

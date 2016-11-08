@@ -1,0 +1,164 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	Font	=
+	Scheme = Achayan
+	Comment = {,}
+	Carry Comment = Yes
+	Output HTML = No
+	Allow R dot = No
+
+%% Double Quote
+%% Single Quote
+%% Symbols
+
+: 	= H
+
+a       = a
+aa	= aa
+i	= i
+ii	= ee	= ii
+u	= u
+uu	= U	= oo	= uu
+R~	= r^
+R~~	= r^^
+l~	= l^
+l~~	= l^^
+e	= e
+E	= E
+ai	= I = ai
+o	= o
+O	= O
+au	= ou	= au
+
+~	= ~
+
+k	= k
+kh	= kh
+g	= g
+gh	= gh
+
+ch	= ch
+chh	= chh
+j	= j
+jh	= jh
+nj	= nj
+
+t	= T
+T	= Th
+d	= D
+D	= Dh
+N	= N
+
+th	= th
+Th	= thh	= thh
+dh	= d
+Dh	= dh
+n	= n
+
+p	= p
+ph	= f = ph
+b	= b
+bh	= bh
+m	= m
+
+y	= y
+r	= r
+l	= l
+v	= v
+
+S	= S
+sh	= sh
+s	= s
+h	= h
+
+L	= L
+zh	= zh
+R	= rr
+TT	= TT
+
+kk	= K = kk
+ksh	= ksh
+gg	= G = gg
+gn	= gn
+gm	= gm
+nk	= ngk = ngk
+ng	= ngng	= ngng
+
+chch	= chch
+njch	= nch = njch
+njnj	= njnj
+
+tt	= t
+Nt	= NT
+Nd	= ND
+NN	= NN
+Nm	= Nm
+
+thth	= thth
+ththh	= thTh = ththh
+thbh	= lbh = thbh
+thm	= thm
+thn	= thn
+dhdh	= dd
+dhDh	= ddh
+
+nth	= nth
+nthh	= nTh = nthh
+ndh	= nd
+nDh	= ndh
+nn	= nn
+nm	= nm
+nt	= nt
+
+pp	= P = pp
+bb	= B = bb
+
+mp	= mp
+mm	= M = mm
+mL	= mL
+
+yy	= Y = yy
+ll	= ll
+ls	= ths = ls
+vv	= V = W = vv
+SS	= SS
+ss	= ss
+hn	= hn
+LL	= LL
+
+%% letter a
+%% Vowels
+%% Consonant+Vowel
+%% samvr^thOkaaram (chandrakkaLa)
+%% General Letters
+%% Sa, sa and ga
+%% Ta vargaakshrangaL
+%% letter Da
+%% letter Na
+%% tha vargaakshrangaL
+%% letter na
+%% letters zha and  ya
+%% letter la
+%% letters La and ma
+%% letters ra rra
+%% letter va
+%% kooTTaksharangngaL
+

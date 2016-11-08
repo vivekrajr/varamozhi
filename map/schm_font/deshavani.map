@@ -1,0 +1,289 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+      Font    = DVmalayalam
+      Scheme  = mozhi
+      Comment = {,}
+      Carry Comment = No
+      Output HTML   = No
+      Allow R dot   = No
+
+%% Double Quote
+
+"     = ", ", ''
+
+%% Single Quote
+
+`     = ', ', '
+'     = ', ', '
+
+%% Symbols
+
+_       =
+\b      = \b
+\t      = \t
+!       = !
+%       = %
+(       = (
+)       = )
+*       = *
++       = +
+\,      = \,
+.       = .
+/       = /
+;       = ;
+\=      = \=
+?       = ?
+[       = [
+]       = ]
+-       = -
+
+\0       = 0
+\1       = 1
+\2       = 2
+\3       = 3
+\4       = 4
+\5       = 5
+\6       = 6
+\7       = 7
+\8       = 8
+\9       = 9
+
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9
+
+H       = \200
+
+
+%% letter a
+
+a     = a
+
+%% Vowels
+
+aa    = I    ,   , A       , A
+i     = E    ,   , i       , i
+ee    = E\203,   , \193    , i
+u     = U    ,   , u       , \199
+oo    = U\203,   , \199    , \199
+R = W    ,   , \194
+#RR  = c\248,   , \243\248
+
+e     = C    , e ,         , i
+E     = Q    , o
+ai    = eC   , ee
+o     = O    , e , A       , \199
+O     = OA   , o , A       , A
+au    = O\203,   , \203
+
+
+%% Consonant+Vowel
+
+yu    = Yu, , \195
+yoo   = Y\199, , \196
+
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~     = \201, , \201, \201
+
+%% General Letters
+
+@     =
+
+k     = K
+kh    = X
+gh    = ]
+ng    = Z
+
+ch    = ~
+chh   = b
+j     = J
+jh    = _
+nj    = k
+
+p     = P
+ph    = F
+b     = B
+bh    = \130
+
+sh    = \135
+h     = H
+
+t     = \182
+
+y_    = Y, , \202
+v_    = V, , \198
+
+%% Sa, sa and ga
+
+S     = \134
+s     = S
+g     = G
+
+%% Ta vargaakshrangaL
+
+T     = T
+Th    = \92
+Dh    = ^|\151
+
+
+%% letter Da
+
+D     = D
+
+%% letter Na
+
+N     = `, , , t
+
+%% tha vargaakshrangaL
+
+th    = \128
+thh   = \175
+d     = \184
+dh    = \129
+
+%% letter na
+
+n     = N, , , n
+
+%% letters zha and  ya
+
+y     = Y, , \202
+zh    = \133
+
+%% letter ma
+
+m     = M, , , m
+
+%% letter La
+
+L     = \132, , , \149
+
+%% letter la
+
+l     = L, , , l
+
+%% letters ra rra
+
+rr = \131, \197, ,r
+r     = R, \197, , r
+
+%% letter va
+
+v     = V, , \198
+
+%% kooTTaksharangngaL
+
+kk    = {
+kl    = kL   = c
+ksh   = d
+kth   = \178
+kT    = \176
+
+gg    = f
+gn    = \173
+gl    = gL   = g
+
+ngk   = h
+ngng  = j
+
+chch  = \185
+chchh = \147|\215
+
+jj    = \172
+jnj   = \171
+
+njch  = p
+njnj  = q
+
+TT    = s
+DDh   = \186
+
+NT    = v
+
+ND    = \204
+NN    = w
+Nm    = \169
+
+thth  = x
+ththh = y
+thm   = \166
+thbh  = \168
+ths   = \167
+
+dd    = z | \187
+ddh   = \136
+
+nth   = \137
+nthh  = \179
+nd    = \138
+ndh   = \177
+nn    = \139
+nm    = \140
+nt    = \148|\205|\216
+
+pp    = \141
+pl    = pL    = \142
+bb    = \146|\218
+bd    = \162
+bdh   = \161
+bl    = bL    = \145|\217
+
+mp    = \143
+mm    = \144
+mL    = ml    = \163
+
+ykk   = \174
+yy    = \180
+
+lp    = \188
+ll    = \150
+vv    = \158
+
+Sch   = \183
+SS    = \157
+Sl    = SL    = \154
+
+shT   = \181
+
+sth   = \206
+sthh  = \170
+ss    = \155
+sl    = sL    = \156
+st    = \159
+
+hm    = \190
+hn    = \165
+hl    = hL    = \153
+
+LL    = \152
+
+
+%% macro
+

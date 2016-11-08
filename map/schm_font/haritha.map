@@ -1,0 +1,324 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+      Font    = Haritha
+      Scheme  = mozhi
+      Comment = {,}
+      Carry Comment = No
+      Output HTML   = No
+      Allow R dot   = No
+
+%% Double Quote
+
+"     = ", ", "
+
+%% Single Quote
+
+`     = ', ', '
+'     = ', ', '
+
+%% Symbols
+
+_       =
+\b      = \b
+\t      = \t
+!       = !
+%       = %
+(       = (
+)       = )
+*       = *
++       = +
+\,      = \,
+.       = .
+/       = /
+:       = :
+;       = ;
+\=      = \=
+?       = ?
+-       = $
+        = -
+
+\0       = 0
+\1       = 1
+\2       = 2
+\3       = 3
+\4       = 4
+\5       = 5
+\6       = 6
+\7       = 7
+\8       = 8
+\9       = 9
+
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9
+
+H     = x
+
+%% letter a
+
+a     = A
+
+%% Vowels
+
+i     = C    ,         , n     , o
+u     = D    ,         , p     , q
+R = E    ,         , r
+RR   = Eu   ,         , ru
+e     = F    , s       ,       , o
+E     = G    , t
+ai    = sF   , ss
+o     = H    , s       , m     , q
+O     = Hm   , t       , m     , m
+au    = Hu   ,         , u
+
+aa    = B    ,         , m     , m
+ee    = Cu   ,         , o     , o
+oo    = Du   ,         , q     , q
+
+%% Consonant+Vowel
+
+yu   = bp, , \#
+yoo  = bq, , >
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~     = v, , v, v
+
+%% General Letters
+
+@     =
+
+k     = I
+kh    = J
+gh    = L
+ng    = M
+
+ch    = N
+chh   = O
+j     = P
+jh    = Q
+nj    = R
+
+p     = ]
+ph    = ^
+b     = _
+bh    = `
+
+sh    = j
+h     = l
+
+t     = \226
+
+y_    = b, , y
+v_    = h, , z
+
+
+%% Sa, sa and ga
+
+S     = i
+s     = k
+g     = K
+
+%% Ta vargaakshrangaL
+
+T     = S
+Th    = T
+Dh    = V
+
+
+%% letter Da
+
+D     = U
+
+%% letter Na
+
+N     = W, , , \189
+
+%% tha vargaakshrangaL
+
+th    = X
+thh   = Y
+d     = Z
+dh    = [
+
+%% letter na
+
+n     = \\, , , \203
+
+%% letters zha and  ya
+
+y     = b, , y
+zh    = g
+
+%% letter ma
+
+m     = a, , , w
+
+%% letter La
+
+L     = f, , , \231
+
+%% letter la
+
+l     = e, , , \227
+
+%% letters ra rra
+
+rr = d, {, , \225
+r     = c, {, , \225
+
+%% letter va
+
+v     = h, , z
+
+%% kooTTaksharangngaL
+
+kk    = \|
+ksh   = \162
+kth   = ~
+kT    = }
+kL    = \161
+
+gg    = \163
+gn    = \166
+gm    = \167
+gd    = \164
+gddh  = \165
+gL    = \168
+
+ngk   = \169
+ngng  = \170
+
+chch  = \174
+chchh = \176
+
+jj    = \177
+jnj   = \178
+
+njch  = \179
+njchh = \180
+njnj  = \185
+njj   = \184
+
+TT    = \186
+DDh   = \188
+
+NT    = \190
+
+# i don't want to split T vargam any more for this! - conflict with NTa and NTha
+# first one is split with no full Ta and second one is split with small Tha
+# if no single koottksharam is present
+
+NTh   = \191
+NN    = \193
+Nm    = \194
+
+thth  = \195
+ththh = \196
+thm   = \199
+thn   = \197
+thbh  = \198
+ths   = \200
+
+dd    = \201
+ddh   = \202
+
+nth   = \204
+nthh  = \205
+nd    = \206
+ndh   = \207
+nn    = \208
+nm    = \209
+nt    = \210
+
+pn    = \211
+pp    = \212
+pL    = \213
+bd    = \214
+bdh   = \215
+bb    = \216
+bL    = \217
+
+mp    = \218
+mm    = \219
+
+yk    = \221
+ykk   = \222
+yth   = \223
+yy    = \224
+
+lk    = \228
+lp    = \229
+ll    = \230
+vv    = \234
+
+Sch   = \235
+Sn    = \236
+SS    = \238
+SL    = \237
+
+shk   = \239
+shT   = \240
+shN   = \241
+shp   = \242
+shph  = \243
+
+sk    = \244
+sth   = \245
+sthh  = \246
+sn    = \247
+sp    = \248
+sph   = \249
+sm    = \250
+sL    = \251
+ss    = \252
+
+hm    = \254
+hn    = \253
+hL    = \255
+
+LL    = \232
+
+# zh_ represent chillu-zh. since that is deprecated, zh_va is written
+# with alternate sign of va to indicate that
+
+#zh_v  = 
+
+zhch  = \233
+
+
+%% macro
+
+m/kr    = m_
+
+
+# there is a conflict in SVARKOOT. 'ryoo' need 'canadd + SVARKOOT' and 'rvRR' need 'noadd + SVARKOOT'
+# right now, there is only one property can be assigned to SVARKOOT involved rules.
+# that is, 'canadd + SVARKOOT'. So is following hack..
+
+r/v[rR] = r_

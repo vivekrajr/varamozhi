@@ -1,0 +1,141 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#
+#	Scheme = velthuis
+#
+#
+#	a       aa/A    i       ii/I    u      uu/U    .r      .R      .l      .L
+#	e       E       ai      o       O      au      a.m/aM  a.h/aH
+#	
+#	k       kh/K    g       gh/G    "n
+#	c       ch/C    j       jh/J    ~n
+#	.t      .th/.T  .d      .dh/.D  .n
+#	t       th/T    d       dh/D    n 
+#	p       ph/P    b       bh/B    m 
+#	
+#	y       r       l       v
+#	"s      .s      s       h
+#	L       Rh      R
+#	
+#	Symbols - only those relevent to Malayalam
+#	------------------------------------------
+#	
+#	pra"sLE.saM = .a
+#	full stop   = ..
+#	
+# 	pra"sLE.saM (avagraha) is not defined in Mozhi scheme.
+#	So not mentioned here. But it is .a in velthuis scheme.
+#
+#	More info:
+#	http://www.rug.nl/~velthuis/velthuis.html
+
+	Comment = {, }
+	Carry Comment = Yes
+
+%% Double Quote
+
+%% Single Quote
+
+%% Symbols
+
+..	= .
+.h	= H = H
+.m	= M = @am
+
+a	= a
+aa	= A = aa
+i	= i
+ii	= I = ii
+u	= u
+uu	= U = uu
+.r	= r^
+.R	= r^^
+.l	= l^
+.L	= l^^
+
+e	= e
+E 	= E
+ai	= ai
+o	= o
+O	= O
+au	= au
+
+k	= k
+kh	= K = kh
+g	= g
+gh	= G = gh
+"n	= ng
+
+c	= ch
+ch	= C = chh
+j	= j
+jh	= J = jh
+~n	= nj
+
+.t	= T
+.T	= .th = Th
+.d	= D
+.dh	= .D = Dh
+.n	= N
+
+t	= th
+T	= th = thh
+d	= d
+dh	= D = dh
+n	= n
+
+p	= p
+f	= ph = ph
+b	= b
+bh	= bh
+m	= m
+
+y	= y
+r	= r
+l	= l
+v	= v
+
+"s	= S
+.s	= sh
+s	= s
+h	= h
+
+L	= L
+Rh	= zh
+R	= rr
+
+%% letter a
+%% Vowels
+%% Consonat + Vowel
+%% samvr^thOkaaram (chandrakkala)
+%% General Letters
+%% Sa, sa and ga
+%% ta vargaakshrangaL
+%% letter Da
+%% letter Na
+%% tha vargaakshrangaL
+%% letter na
+%% letters zha and  ya
+%% letter la
+%% letters La and ma
+%% letters ra and rra
+%% letter va
+%% koottaksharangngal

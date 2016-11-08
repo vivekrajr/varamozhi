@@ -1,0 +1,271 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	Font	= Unicode
+	Scheme  = mozhi
+	Comment = {,}
+	Carry Comment = No
+	Allow R dot = No
+
+%% Double Quote
+
+" = ", 0x201C, 0x201D
+
+%% Single Quote
+
+' = ', 0x2018, 0x2019
+
+%% Symbols
+
+_	=
+H 	= 0x0D03
+
+        = 0x200C
+        = 0x200D
+        = 0xFEFF
+0x00AD  = 0x00AD
+\b      = \b
+\t      = \t
+!       = !
+%       = %
+*       = *
++       = +
+/       = /
+.       = .
+;       = ;
+:       = :
+<       = <
+\=      = \=
+>       = >
+\,      = \,
+(       = (
+)       = )
+?       = ?
+[       = [
+]       = ]
+-       = -
+
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9
+
+# Malayalam Numerals
+
+\0      = 0x0D66
+\1      = 0x0D67
+\2      = 0x0D68
+\3      = 0x0D69
+\4      = 0x0D6A
+\5      = 0x0D6B
+\6      = 0x0D6C
+\7      = 0x0D6D
+\8      = 0x0D6E
+\9      = 0x0D6F
+
+\10     = 0x0D70
+\100    = 0x0D71
+\1000   = 0x0D72
+\1/4    = 0x0D73
+\1/2    = 0x0D74
+\3/4    = 0x0D75
+
+k_      = 0x0D7F
+
+k__     = 0x0D15 0x0D4D 0x200D
+n__     = 0x0D28 0x0D4D 0x200D
+N__     = 0x0D23 0x0D4D 0x200D
+r__     = 0x0D30 0x0D4D 0x200D
+l__     = 0x0D32 0x0D4D 0x200D
+L__     = 0x0D33 0x0D4D 0x200D
+
+n^      = 0x0D79
+
+//      = 0x0D3D
+
+%% letter a
+
+a       = 0x0D05
+
+%% Vowels
+
+aa = A  = 0x0D06, , 0x0D3E, 0x200B 0x200D 0x0D3E
+i       = 0x0D07, , 0x0D3F, 0x200B 0x200D 0x0D40
+ee = ii = 0x0D08, , 0x0D40, 0x200B 0x200D 0x0D40
+u	= 0x0D09, , 0x0D41, 0x200B 0x200D 0x0D42
+oo = uu = 0x0D0A, , 0x0D42, 0x200B 0x200D 0x0D42
+R       = 0x0D0B, , 0x0D43
+RR	= 0x0D60, , 0x0D44
+Ll      = 0x0D0C, , 0x0D62
+Lll     = 0x0D61, , 0x0D63
+e	= 0x0D0E, , 0x0D46, 0x200B 0x200D 0x0D40
+E	= 0x0D0F, , 0x0D47
+ai	= 0x0D10, , 0x0D48
+o	= 0x0D12, , 0x0D4A, 0x200B 0x200D 0x0D42
+O	= 0x0D13, , 0x0D4B, 0x200B 0x200D 0x0D3E
+au	= 0x0D14, , 0x0D57
+ou	= 0x0D14, , 0x0D4C
+
+
+%% Consonant+Vowel
+
+#sam    = 0x0D38 0x0D02
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~	= 0x0D4D, , 0x0D4D 0x200C, 0x0D4D
+
+%% General Letters
+
+# zwj + combining mark
+@       = 0x200B 0x200D
+
+k	= 0x0D15, , , 0x0D7F | 0x0D15 0x0D4D 0x200D
+kh	= 0x0D16
+gh	= 0x0D18
+ng	= 0x0D19
+
+ch	= 0x0D1A
+chh	= 0x0D1B
+j	= 0x0D1C
+jh	= 0x0D1D
+nj	= 0x0D1E
+
+p	= 0x0D2A
+ph	= 0x0D2B
+b	= 0x0D2C
+bh	= 0x0D2D
+
+sh	= 0x0D37
+h	= 0x0D39
+
+t	= 0x0D31 0x0D4D 0x0D31
+
+%% Sa, sa and ga
+
+S	= 0x0D36
+s	= 0x0D38
+g	= 0x0D17
+
+%% Ta vargaakshrangaL
+
+T	= 0x0D1F
+# IE copy always give <E0><B4>space instead of <E0><B4><A0>
+Th	= 0x0D20 | \224\180\b
+Dh	= 0x0D22
+
+%% letter Da
+
+D	= 0x0D21
+
+%% letter Na
+
+N	= 0x0D23, , , 0x0D7A | 0x0D23 0x0D4D 0x200D
+
+%% tha vargaakshrangaL
+
+th	= 0x0D24
+thh	= 0x0D25
+d	= 0x0D26
+dh	= 0x0D27
+
+%% letter na
+
+n	= 0x0D28, , ,  0x0D7B | 0x0D28 0x0D4D 0x200D
+
+%% letters zha and  ya
+
+y	= 0x0D2F
+zh	= 0x0D34
+
+%% letter ma
+
+m	= 0x0D2E, , , 0x0D02
+
+%% letter La
+
+L	= 0x0D33, , ,  0x0D7E | 0x0D33 0x0D4D 0x200D
+
+%% letter la
+
+l	= 0x0D32, , 0x0D4D 0x0D32, 0x0D7D | 0x0D32 0x0D4D 0x200D
+
+%% letters ra rra
+
+rr = 0x0D31, , 0x0D4D 0x0D30, 0x0D7C | 0x0D30 0x0D4D 0x200D
+r	= 0x0D30, , 0x0D4D 0x0D30, 0x0D7C | 0x0D30 0x0D4D 0x200D
+
+%% letter va
+
+v = w 	= 0x0D35
+
+%% kooTTaksharangngaL
+
+# na + virama + Ra (?)
+nt      = 0x0D28 0x0D4D 0x0D31
+
+# Without these, default action of chill~ na + ma will happen when no 'nma' conjuct is defined.
+# When no conjunct is available there is a confusion about choosing between
+# (a) na + ~ + ma    or
+# (b) chill~ na + ma 
+#
+# In the general form this problem happens for conjuncts "chillable Consonant A + consonant B".
+# I am choosing A + ~ + B for conjuncts that are very common eg: nma, Nma, mna etc
+# for rest of them choosing 'chill~ A + B'.
+#
+# There itself I have 2 options. Coding it in mal.y or hard coding it here.
+# when both chill~ A + B and  conjunct AB are common forms, I hard code it here assuming
+# unicode font will have AB conjuct. Other fonts will use AB conjunct if available or
+# fall back to chill~ A + B.
+# 
+# But I am still confused about boarderline cases like 'lka' 'lma' etc
+
+nm      = 0x0D28 0x0D4D 0x0D2E
+Nm      = 0x0D23 0x0D4D 0x0D2E
+
+
+
+# This is a bug with mal.y. If 'mpa' conjunct is not available, it should be translated as
+# m~pa instead of anuswaram+pa. The 'mpa' conjunct is not encoded in unicode only.
+# Unicode font will have the conjunct though. So let us hack it here.
+
+mp      = 0x0D2E 0x0D4D 0x0D2A
+
+
+
+# this is for lam. Without this,  0x0D4D 0x0D33 will force L~L to form;
+# because L's wrap form is different - 0x0D4D 0x0D32
+
+LL	= 0x0D33 0x0D4D 0x0D33
+
+
+# otherwise it would use symbol of v which should not be used
+yv      = 0x0D2F 0x0D4D 0x200C 0x0D35
+yl      = 0x0D2F 0x0D4D 0x200C 0x0D32
+yr      = 0x0D2F 0x0D4D 0x200C 0x0D30
+
+
+%% macro

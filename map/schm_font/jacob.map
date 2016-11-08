@@ -1,0 +1,227 @@
+
+#    Varamozhi: A tool for transliteration of Malayalam text between
+#               English and Malayalam scripts
+#
+#    Copyright (C) 1998-2008  Cibu C. J. <cibucj@gmail.com>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+	Font	      = Jacobs-Mal-Normal
+	Scheme        = mozhi
+	Comment       = {,}
+	Carry Comment = No
+	Output HTML   = No
+	Allow R dot   = No
+
+%% Double Quote
+
+"	=  \146\146,  \146\146, \145\145
+
+%% Single Quote
+
+`	= \145,  \145, \146
+'	= \146,  \145, \146
+
+%% Symbols
+
+_	=
+\b      = \b
+.       = &
+\=      = \=
+\,      = }
+(       = '
+)       = ~
+-       = \254
+
+\0       = 0
+\1       = 1
+\2       = 2
+\3       = 3
+\4       = 4
+\5       = 5
+\6       = 6
+\7       = 7
+\8       = 8
+\9       = 9
+
+0       = 0
+1       = 1
+2       = 2
+3       = 3
+4       = 4
+5       = 5
+6       = 6
+7       = 7
+8       = 8
+9       = 9	
+
+H 	= \|
+
+%% letter a
+
+a      = !
+
+%% Vowels
+
+aa	= #         ,              , T          , T
+i	= $         ,              , U          , V
+ee	= $]        ,              , V          , V
+u	= %         ,              , W, X
+oo	= %]        ,              , X, X
+R = {         ,              , Y
+RR	= {]        ,              , Y]
+e	= "         , [            ,            , V
+E	= (         , \\
+ai	= ["        , [[
+o	= )         , [            , T          , T
+O	= )T        , \\           , T          , T
+au	= )]        ,              , ]
+
+
+%% Consonant+Vowel
+
+#sam     = 
+
+%% samvRRthOkaaram (chandrakkaLa)
+
+~	= a , , a, a
+
+%% General Letters
+
+@	=
+
+k	= *
+kh	= +
+gh	= -
+ng	= .
+
+ch	= /
+chh	= 0
+j	= 1
+jh	= z
+nj	= 2
+
+p	= \=
+ph	= >
+b	= ?
+bh	= @
+
+sh	= G
+h	= I
+
+t	= p
+
+y_	= B, , _
+v_	= E, , Z
+
+%% Sa, sa and ga
+
+S	= F
+s	= H
+g	= \,
+
+%% Ta vargaakshrangaL
+
+T	= 3
+Th	= 4
+Dh	= 6
+
+
+%% letter Da
+
+D	= 5
+
+%% letter Na
+
+N	= 7 , , , Q
+
+%% tha vargaakshrangaL
+
+th	= 8
+thh	= 9
+d	= :
+dh	= ;
+
+%% letter na
+
+n	= < , , , N
+
+%% letters zha and  ya
+
+y	= B , , _
+zh	= K
+
+%% letter ma
+
+m	= A , , , ^
+
+%% letter La
+
+L	= J , , c , P
+
+%% letter la
+
+l	= D , , c, O
+
+%% letters ra rra
+
+rr = L , ` , , M
+r	= C , ` , , M
+
+%% letter va
+
+v	= E , , Z
+
+%% kooTTaksharangngaL
+
+kk	= d
+ksh	= R
+ngk	= v
+ngng	= h
+
+chch	= /b
+njch	= w
+njnj	= i
+
+TT	= e
+
+NT	= t
+NN	= j
+
+thth	= f
+ththh	= r
+dd	= o
+ddh	= u
+
+nth	= x
+nthh	= s
+nd	= S
+nn	= k
+nm	= q
+nt	= NL
+
+pp	= g
+bb	= ?b
+
+mp	= y
+mm	= l
+
+yy	= Bb
+ykk     = n
+ll      = Dc
+vv	= Eb
+LL	= m
+
+%% macro

@@ -1,0 +1,81 @@
+<giproject version="4.0">
+	<languages>
+		<language id="ENU"/>
+		<language id="ENU" pluginid="StdUI"/>
+	</languages>
+	<packages>
+		<package filename="VaramozhiEditorSetup-%VaramozhiVersion%" main="1">
+			<components>
+				<component dst="%InstallPath%" id="App" name="App">
+					<files>
+						<file dst="bin\malvi_mozhi_mathrubhumi.exe" src="J:\varamozhi\varamozhi\test\malvi_mozhi_mathrubhumi.exe"/>
+						<file dst="bin\malvi_mozhi_unicode.exe" src="J:\varamozhi\varamozhi\test\malvi_mozhi_unicode.exe"/>
+						<file dst="bin\lamvi_mathrubhumi.exe" src="J:\varamozhi\varamozhi\lamsrc\lamvi_mathrubhumi.exe"/>
+						<file dst="bin\lamvi_unicode.exe" src="J:\varamozhi\varamozhi\lamsrc\lamvi_unicode.exe"/>
+						<file dst="bin\editor.exe" src="J:\varamozhi\varamozhi\gui\editor.exe"/>
+						<file dst="src\editor.pl" src="J:\varamozhi\varamozhi\gui\editor.pl"/>
+						<file dst="doc\lipi.png" src="J:\varamozhi\varamozhi\gui\lipi.png"/>
+						<file dst="icon\va.ico" src="J:\varamozhi\varamozhi\gui\varamozhi-icon7.ico"/>
+						<file dst="icon\va-hires.gif" src="J:\varamozhi\varamozhi\gui\varamozhi-icon.gif"/>
+						<file dst="fonts\MATWEB.TTF" src="J:\fonts\ttf\MATWEB.TTF"/>
+						<file dst="fonts\AnjaliOldLipi-0.730.ttf" src="J:\fonts\ttf\AnjaliOldLipi-0.730.ttf"/>
+					</files>
+					<registry>
+						<reg key="HKLM\Software\Varamozhi" param="noparam" value="novalue"/>
+					</registry>
+					<shortcuts>
+						<shortcut cmdline="%InstallPath%\bin\editor.exe" iconfile="%InstallPath%\icon\va.ico" name="%AppFolder%\%AppName%" workdir="%InstallPath%"/>
+						<shortcut cmdline="%InstallPath%\bin\editor.exe" iconfile="%InstallPath%\icon\va.ico" name="%CommonDesktop%\%AppName%" workdir="%InstallPath%"/>
+					</shortcuts>
+				</component>
+				<component dst="%System%" id="Sys" name="Sys">
+					<files>
+						<file dst="cygwin1.dll" flags="shared" src="C:\cygwin\bin\cygwin1.dll"/>
+					</files>
+				</component>
+			</components>
+			<plugins>
+				<plugin id="StdUI">
+					<config>
+						<paramgroup name="Config">
+							<param name="PreInstallDialogSequence" value="DLG_WELCOME,DLG_DIR,DLG_START"/>
+							<param name="ShowMainWindow" value="1"/>
+							<param name="ShowDialogTitle" value="1"/>
+							<param name="ShowDialogSubTitle" value="1"/>
+							<param name="ShowFinalDialog" value="1"/>
+							<param name="GradientTopColor" value="0"/>
+							<param name="GradientBottomColor" value="$FF0000"/>
+							<param name="StretchBanner" value="0"/>
+							<param name="DialogFont" value="MS Sans Serif,8"/>
+							<param name="DialogBitmap" value="%Presetup%\gins.bmp"/>
+							<param name="DialogTitleFont" value="MS Sans Serif,10,$C08000,B"/>
+							<param name="DialogTitleShadow" value="0"/>
+							<param name="DialogTitleShadowColor" value="$C0C0C0"/>
+							<param name="DialogPosition" value="1,1"/>
+							<param name="DialogSubTitleFont" value="MS Sans Serif,8,$000000"/>
+						</paramgroup>
+						<paramgroup name="Labels">
+							<param name="TitleShadow" value="%Title%,33,23,0,Times New Roman,30,$606060,B"/>
+							<param name="Title" value="%Title%,30,20,0,Times New Roman,30,$FF0000,B"/>
+						</paramgroup>
+					</config>
+				</plugin>
+			</plugins>
+		</package>
+	</packages>
+	<variables>
+		<var name="AppID" value="{24E0DC2D-6187-40B2-9CCE-972FE3F601B3}"/>
+		<var name="AppName" value="Varamozhi Editor"/>
+		<var name="CompanyName" value="Varamozhi"/>
+		<var name="OutputPath" value="J:\varamozhi"/>
+		<var name="Password"/>
+		<var name="CompressionLevel" value="7"/>
+		<var name="Uninstall" value="1"/>
+		<var name="AutoSelectLanguage" value="1"/>
+		<var name="ProgramGroup" value="%AppName%"/>
+		<var name="AppFolder" value="%ProgramsMenu%\%ProgramGroup%"/>
+		<var name="InstallPath" value="%ProgramFiles%\%AppName%"/>
+		<var name="VaramozhiVersion" value="1.07.01"/>
+		<var name="Title" value="%AppName% %VaramozhiVersion%"/>
+	</variables>
+</giproject>
